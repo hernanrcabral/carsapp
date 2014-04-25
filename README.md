@@ -12,6 +12,13 @@ Version
 =======
 0.1
 
+Integrantes
+===========
+Damaris
+Silvia
+Carolina
+Victoria
+
 Stack
 =====
 Cars app will use the following open source tools:
