@@ -4,7 +4,7 @@ import org.javalite.activejdbc.Model;
 
 public class Vehicle extends Model {
 	static{
-		validatePresenceOf("user_id", "city_id","status","type","patent","model","mark","description","price");
+		validatePresenceOf("user_id", "city_id","status","type","patent","kind","mark","description","price");
 	}
 }
 

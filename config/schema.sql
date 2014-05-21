@@ -1,4 +1,3 @@
-use CVVdatabase;
 -- Integrantes: Garcia Silvia - Bueno Maria Victoria - Zabala Ana Carolina - Gomez Seyla Damaris
 
 DROP TABLE IF EXISTS users; -- Usuarios
@@ -14,21 +13,21 @@ CREATE TABLE users(
 drop table if exists cities;
 create table cities(
 	id int(11) not null auto_increment,
-	postal_code integer(10) not null,	
-	name varchar(40) not null,
+	postal_code int(11) not null,	
+	name varchar(60) not null,
 	constraint pk_city primary key (id)
 );
 
 DROP TABLE IF EXISTS vehicles; 	-- Vehiculos
 CREATE TABLE vehicles(
 	patent VARCHAR (11) not null, 
-	model VARCHAR(11) not null,
+	kind VARCHAR(11) not null,
 	mark  VARCHAR(11) not null,
-    descripcion VARCHAR (40),
+    description VARCHAR (60),
     type enum('Car','Truck','Motocycle','Others') not null,
    	price FLOAT not null,
 	status enum('Sell','Buy') not null,
-	user_id integer(11) not null references users(id),
+	user_id int (11) not null references users(id),
 	city_id int(11) not null references cities(id),
 	constraint pk_vehicle primary key (patent)
 );	
