@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.javalite.test.jspec.JSpec.the;
-import static org.junit.Assert.assertEquals;													// PARA QUE ME SIRVE???!!!
+import static org.junit.Assert.assertEquals;													
 
 
 public class VehicleTest{
@@ -22,7 +22,7 @@ public class VehicleTest{
 
     @After
     public void after(){
-//        System.out.println("UserTest tearDown");					 	QUE SE SUPONE QUE HACE, REALMENTE ES NECESARIO COMO EL ANTERIOR??XQ EL NO LO TIENE
+        System.out.println("VehicleTest tearDown");				
         Base.rollbackTransaction();
         Base.close();
     }
@@ -48,14 +48,17 @@ public class VehicleTest{
         user.set("first_name", "John", "last_name", "Doe", "email", "example@email.com");
         user.save();
 
+//	City city =new City();
+//		city.set ("name", "General Deheza", "postal_code", 5923);
+//		city.save();
+
 		// Create Vehicle
-    	 vehicle.set("patent", "HDK526", "kind", "307", "mark", "Fiat", "Type", "Car", "description"," no lo se ", "status", "Sell", "price", 32.393, "user_id", user.get("id") , "city_id", 1);
+    	 vehicle.set("patent", "HDK526", "kind", "307", "mark", "Fiat", "type", "Car", "description"," Combustible: Diesel, Color: Negro, Transmisión: Manual,  Puertas: 4, Dirección: Hidráulica. Impecable. Sin uso. Muy pocos kilómetros. Excelente estado.  Doble airbags, frenos a disco en las cuatro ruedas, levanta cristales delanteros y traseros, alarma, llantas de aleación. Papeles al día. Listo para transferir. ", "status", "Sell", "price", 32.393, "user_id", user.get("id"), "city_id", 1);
 
         vehicle.save();
 
    System.out.println(vehicle);
    System.out.println(vehicle.parent(User.class));
-
 
         // Everything is good:
         the(vehicle).shouldBe("valid");
