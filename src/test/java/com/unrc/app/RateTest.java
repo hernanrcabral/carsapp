@@ -3,6 +3,8 @@ package com.unrc.app;
 import com.unrc.app.models.User;
 import com.unrc.app.models.Post;
 import com.unrc.app.models.Rate;
+import com.unrc.app.models.City;
+import com.unrc.app.models.Vehicle;
 
 import org.javalite.activejdbc.Base;
 import org.junit.After;
@@ -21,32 +23,32 @@ public class RateTest{
 
     @After
     public void after(){
-        //System.out.println("RateTest tearDown");
+        System.out.println("RateTest tearDown");
         Base.rollbackTransaction();
         Base.close();
     }
- @Test
+
+   @Test
     public void shouldValidateMandatoryFields(){
        Rate rate= new Rate();
-
-       // check errors
+  
+     // check errors
         the(rate).shouldNotBe("valid");
-        the(rate.errors().get("id_rate")).shouldBeEqual("value is missing");        
-        the(rate.errors().get("point")).shouldBeEqual("value is missing");
+        the(rate.errors().get("points")).shouldBeEqual("value is missing");
         the(rate.errors().get("user_id")).shouldBeEqual("value is missing");
-        the(rate.errors().get("id_post")).shouldBeEqual("value is missing");
+        the(rate.errors().get("post_id")).shouldBeEqual("value is missing");
         
+
         User user = new User();
-        user.set("first_name", "John", "last_name", "Doe", "email", "example@email.com");
+        user.set("id",1,"first_name", "John", "last_name", "Doe", "email", "example@email.com");
         user.save();
 
 		// Create question
-    	 rate.set("id_rate","1","point","5","user_id", user.get("id"),"id_post", post.get("id"));
-
-         rate.save();
-
-   System.out.println(rate);
-   System.out.println(rate.parent(User.class));
+    	 rate.set("points",5,"user_id",user.get("id"),"post_id",1);
+		 rate.save();
+        
+ 		 System.out.println(rate);
+   		System.out.println(rate.parent(User.class));
 
 
         // Everything is good:

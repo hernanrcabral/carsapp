@@ -11,16 +11,17 @@ import static org.javalite.test.jspec.JSpec.the;
 import static org.junit.Assert.assertEquals;
 
 public class UserTest{
+
     @Before
     public void before(){
         Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/carsapp_test", "root", "root");
-        System.out.println("UserTest setup");
+                                                          
         Base.openTransaction();
     }
 
     @After
     public void after(){
-        System.out.println("UserTest tearDown");
+        System.out.println("UserTest tearDown");				
         Base.rollbackTransaction();
         Base.close();
     }
@@ -32,8 +33,10 @@ public class UserTest{
         the(user).shouldNotBe("valid");
         the(user.errors().get("first_name")).shouldBeEqual("value is missing");
         the(user.errors().get("last_name")).shouldBeEqual("value is missing");
+        the(user.errors().get("email")).shouldBeEqual("value is missing");
+        the(user.errors().get("pass")).shouldBeEqual("value is missing");
 
-        user.set("first_name", "John", "last_name", "Doe", "email", "example@email.com");
+        user.set("first_name", "John", "last_name", "Doe", "email", "jdoe@gmail.com","pass", "jdoe");
 
         // Everything is good:
         the(user).shouldBe("valid");

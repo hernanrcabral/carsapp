@@ -1,6 +1,5 @@
 package com.unrc.app;
 
-// NOSE  SI DEBO AGREGARSELA A VEHICULO A ESTA CIUDAD PARA MI QUE SI
 import com.unrc.app.models.City;
 
 import org.javalite.activejdbc.Base;
@@ -10,8 +9,9 @@ import org.junit.Test;
 
 import static org.javalite.test.jspec.JSpec.the;
 import static org.junit.Assert.assertEquals;
-
+ 
 public class CityTest{
+
     @Before
     public void before(){
         Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/carsapp_test", "root", "root");
@@ -36,7 +36,7 @@ public class CityTest{
 
         city.set("name", "General Deheza", "postal_code", 5923);
         // Everything is good:
-        the(user).shouldBe("valid");
+        the(city).shouldBe("valid");
     }
 }
 

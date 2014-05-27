@@ -21,7 +21,7 @@ public class QuestionTest{
 
     @After
     public void after(){
-        //System.out.println("QuestionTest tearDown");
+        System.out.println("QuestionTest tearDown");
         Base.rollbackTransaction();
         Base.close();
     }
@@ -31,22 +31,21 @@ public class QuestionTest{
 
        // check errors
         the(question).shouldNotBe("valid");
-        the(question.errors().get("id_question")).shouldBeEqual("value is missing");        
+        the(question.errors().get("id")).shouldBeEqual("value is missing");        
         the(question.errors().get("description")).shouldBeEqual("value is missing");
         the(question.errors().get("user_id")).shouldBeEqual("value is missing");
-        the(question.errors().get("id_answer")).shouldBeEqual("value is missing");
+        the(question.errors().get("answer_id")).shouldBeEqual("value is missing");
         
         User user = new User();
-        user.set("first_name", "John", "last_name", "Doe", "email", "example@email.com");
+        user.set("id",1,"first_name", "John", "last_name", "Doe", "email", "example@email.com");
         user.save();
 
 		// Create question
-    	 question.set("id_question","1","description","¿Donde puedo ir a ver el auto?","user_id", user.get("id"),"id_answer", answer.get("id"));
-
+    	 question.set("id",1,"description","¿Donde puedo ir a ver el auto?","user_id", user.get("id"),"answer_id", 4);
          question.save();
 
-   System.out.println(question);
-   System.out.println(question.parent(User.class));
+		  System.out.println(question);
+		  System.out.println(question.parent(User.class));
 
 
         // Everything is good:
@@ -54,4 +53,5 @@ public class QuestionTest{
 
     }
 }
+
 

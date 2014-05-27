@@ -21,7 +21,7 @@ public class AnswerTest{
 
     @After
     public void after(){
-        //System.out.println("AnswerTest tearDown");
+     	System.out.println("AnswerTest tearDown");
         Base.rollbackTransaction();
         Base.close();
     }
@@ -31,21 +31,20 @@ public class AnswerTest{
 
        // check errors
         the(answer).shouldNotBe("valid");
-        the(answer.errors().get("id_answer")).shouldBeEqual("value is missing");        
+        the(answer.errors().get("id")).shouldBeEqual("value is missing");        
         the(answer.errors().get("description")).shouldBeEqual("value is missing");
         the(answer.errors().get("user_id")).shouldBeEqual("value is missing");
         
         User user = new User();
-        user.set("first_name", "John", "last_name", "Doe", "email", "example@email.com");
+        user.set("id",1,"first_name", "John", "last_name", "Doe", "email", "example@email.com");
         user.save();
 
 		// Create Answer
-    	 answer.set("id_answer","1","description","lo podes venir a ver a casa","user_id", user.get("id"));
-
+    	 answer.set("id",1,"description","lo podes venir a ver a casa","user_id", user.get("id"));
          answer.save();
 
-   System.out.println(answer);
-   System.out.println(answer.parent(User.class));
+   		System.out.println(answer);
+   		System.out.println(answer.parent(User.class));
 
 
         // Everything is good:
@@ -53,4 +52,5 @@ public class AnswerTest{
 
     }
 }
+
 

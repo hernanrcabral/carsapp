@@ -10,6 +10,7 @@ CREATE TABLE carsapp_development.users(
     email VARCHAR(60) UNIQUE,
     first_name VARCHAR(56),
     last_name VARCHAR(56),
+	pass VARCHAR(11),
   CONSTRAINT users_pk PRIMARY KEY (id)
 );
 
@@ -28,9 +29,9 @@ CREATE TABLE carsapp_development.vehicles(
 	kind VARCHAR(11) not null,
 	mark  VARCHAR(11) not null,
     description VARCHAR (400),
-    type enum('Car','Truck','Motocycle','Others') not null,
+    type VARCHAR(40) not null,
    	price DECIMAL not null,
-	status enum('Sell','Buy') not null,
+	status VARCHAR(40) not null,
 	user_id int (11) not null references users(id),
 	city_id int(11) not null references cities(id),
 	constraint pk_vehicle primary key (patent)
@@ -82,6 +83,7 @@ CREATE TABLE carsapp_test.users(
     email VARCHAR(60) UNIQUE,
     first_name VARCHAR(56),
     last_name VARCHAR(56),
+	pass VARCHAR(11),
   CONSTRAINT users_pk PRIMARY KEY (id)
 );
 
@@ -100,9 +102,9 @@ CREATE TABLE carsapp_test.vehicles(
 	kind VARCHAR(11) not null,
 	mark  VARCHAR(11) not null,
     description VARCHAR (400),
-    type enum('Car','Truck','Motocycle','Others') not null,
+    type VARCHAR(40) not null,
    	price DECIMAL not null,
-	status enum('Sell','Buy') not null,
+	status VARCHAR(40) not null,
 	user_id int (11) not null references users(id),
 	city_id int(11) not null references cities(id),
 	constraint pk_vehicle primary key (patent)
@@ -129,7 +131,7 @@ CREATE TABLE carsapp_test.posts(
     description VARCHAR(400) NOT NULL,
     user_id INT(11) NOT NULL REFERENCES users(id),
     question_id  INT(11) NOT NULL REFERENCES questions(id),
-	vehiche_id INT(11) NOT NULL REFERENCES vehicles(patent)   	
+	vehicle_id INT(11) NOT NULL REFERENCES vehicles(patent)   	
 );
 
 DROP TABLE IF EXISTS carsapp_test.rates; -- Crea Tabla de Calificación de las publicaciones

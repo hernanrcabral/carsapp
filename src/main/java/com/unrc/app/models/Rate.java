@@ -4,7 +4,7 @@ import org.javalite.activejdbc.Model;
 
 public class Rate extends Model {
 	static{
-		validatePresenceOf("id_rate", "point","user_id","id_post");
+		validatePresenceOf("points","user_id","post_id");
 	}
 }
 
