@@ -70,7 +70,7 @@ CREATE TABLE carsapp_development.rates(
     post_id INT(11) NOT NULL REFERENCES posts(id),
     user_id INT(11) NOT NULL REFERENCES users(id)	
 );
-
+/*
 DROP TABLE IF EXISTS carssapp_development.cars; --Crea Tabla Automovil
 CREATE TABLE carsapp_development.cars(
     id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
@@ -92,7 +92,7 @@ CREATE TABLE carsapp_development.motocicles(
     cylinder INT(11),
     id_vehicle VARCHAR(11) NOT NULL REFERENCES vehicles(patent)
 );
-
+*/
 -- 
 --			DATABASE CARSAPP_TEST
 --
@@ -164,7 +164,7 @@ CREATE TABLE carsapp_test.rates(
     post_id INT(11) NOT NULL REFERENCES posts(id),
     user_id INT(11) NOT NULL REFERENCES users(id)	
 );
-
+/*
 DROP TABLE IF EXISTS carssapp_test.cars; --Crea Tabla Automovil
 CREATE TABLE carsapp_test.cars(
     id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
@@ -186,3 +186,5 @@ CREATE TABLE carsapp_test.motocicles(
     cylinder INT(11),
     id_vehicle VARCHAR(11) NOT NULL REFERENCES vehicles(patent)
 );
+*/
+ 
