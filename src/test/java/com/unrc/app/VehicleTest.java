@@ -37,7 +37,6 @@ public class VehicleTest{
         the(vehicle.errors().get("kind")).shouldBeEqual("value is missing");
 		the(vehicle.errors().get("mark")).shouldBeEqual("value is missing");
         the(vehicle.errors().get("description")).shouldBeEqual("value is missing");
-        the(vehicle.errors().get("type")).shouldBeEqual("value is missing");
         the(vehicle.errors().get("status")).shouldBeEqual("value is missing");  
         the(vehicle.errors().get("price")).shouldBeEqual("value is missing");
         the(vehicle.errors().get("user_id")).shouldBeEqual("value is missing");
@@ -49,7 +48,7 @@ public class VehicleTest{
         user.save();
 
 		// Create Vehicle
-    	 vehicle.set("patent", "HDK526", "kind", "307", "mark", "Fiat", "type", "Car", "description"," Combustible: Diesel, Color: Negro, Transmisión: Manual, Puertas: 4, Dirección: Hidráulica. Sin uso. Muy pocos kilómetros. Excelente estado.  Doble airbags, frenos a disco en las cuatro ruedas, levanta cristales delanteros y traseros, alarma, llantas de aleación. Papeles al día. Listo para transferir. ", "status", "Sell", "price", 32.393, "user_id", user.get("id"), "city_id", 1);
+    	 vehicle.set("patent", "HDK526", "kind", "307", "mark", "Fiat", "description", "Combustible: Diesel, Color: Negro. Sin uso. Muy pocos kilómetros. Excelente estado. Alarma. Papeles al día. Listo para transferir. ", "status", "Sell", "price", 32.393, "user_id", user.get("id"), "city_id", 1);
 
         vehicle.save();
 
