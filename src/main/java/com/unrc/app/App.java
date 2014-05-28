@@ -1,7 +1,6 @@
 package com.unrc.app;
 
 import org.javalite.activejdbc.Base;
-
 import com.unrc.app.models.User;
 
 /**
@@ -15,17 +14,21 @@ public class App
         System.out.println( "Hello cruel World!" );
 
         Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/carsapp_development", "root", "root");
-
         User user = new User();
-        user.set("first_name", "Marilyn");
+        user.set("first_name","Marilyn");
         user.set("last_name", "Monroe");
+		user.set("email","monroe@hotmail.com");
+		user.set("pass","mmonroe112");
         // user.set("dob", "1935-12-06");
         user.saveIt();
 
         //User.createIt("first_name", "Marcelo", "last_name", "Uva");
 
         Base.close();
-    }
+         //get("/hello",(request, response) -> {
+         // return "Hello World!";
+     	// });
+   }
 }
 
 
