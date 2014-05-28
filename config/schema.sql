@@ -29,7 +29,6 @@ CREATE TABLE carsapp_development.vehicles(
 	kind VARCHAR(11) not null,
 	mark  VARCHAR(11) not null,
     description VARCHAR (400),
-    type VARCHAR(40) not null,
    	price DECIMAL not null,
 	status VARCHAR(40) not null,
 	user_id int (11) not null references users(id),
@@ -70,6 +69,34 @@ CREATE TABLE carsapp_development.rates(
     post_id INT(11) NOT NULL REFERENCES posts(id),
     user_id INT(11) NOT NULL REFERENCES users(id)	
 );
+DROP TABLE IF EXISTS carssapp_development.cars; -- Crea Tabla Automovil
+CREATE TABLE carsapp_development.cars(
+    id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    count_doors INT(11),   
+    id_vehicle VARCHAR(11) NOT NULL REFERENCES vehicles(patent)
+    
+);
+
+DROP TABLE IF EXISTS carsapp_development.trucks; -- Crea Tabla Camionetas
+CREATE TABLE carsapp_development.trucks(
+    id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    count_belt INT(11),
+    id_vehicle VARCHAR(11) NOT NULL REFERENCES vehicles(patent)
+);
+
+DROP TABLE IF EXISTS carsapp_development.motocicles; -- Crea Tabla Motocicletas
+CREATE TABLE carsapp_development.motocicles(
+    id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    cylinder INT(11),
+    id_vehicle VARCHAR(11) NOT NULL REFERENCES vehicles(patent)
+);
+
+DROP TABLE IF EXISTS carsapp_development.others; -- Crea Tabla De Otros vehiculos 
+CREATE TABLE carsapp_development.others(
+    id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    c_other INT(11),
+    id_vehicle VARCHAR(11) NOT NULL REFERENCES vehicles(patent)
+);
 
 -- 
 --			DATABASE CARSAPP_TEST
@@ -103,7 +130,6 @@ CREATE TABLE carsapp_test.vehicles(
 	kind VARCHAR(11) not null,
 	mark  VARCHAR(11) not null,
     description VARCHAR (400),
-    type VARCHAR(40) not null,
    	price DECIMAL not null,
 	status VARCHAR(40) not null,
 	user_id int (11) not null references users(id),
@@ -142,4 +168,31 @@ CREATE TABLE carsapp_test.rates(
     post_id INT(11) NOT NULL REFERENCES posts(id),
     user_id INT(11) NOT NULL REFERENCES users(id)	
 );
+DROP TABLE IF EXISTS carssapp_test.cars; -- Crea Tabla Automovil
+CREATE TABLE carsapp_test.cars(
+    id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    count_doors INT(11),   
+    id_vehicle VARCHAR(11) NOT NULL REFERENCES vehicles(patent)
+    
+);
 
+DROP TABLE IF EXISTS carsapp_test.trucks; -- Crea Tabla Camionetas
+CREATE TABLE carsapp_test.trucks(
+    id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    count_belt INT(11),
+    id_vehicle VARCHAR(11) NOT NULL REFERENCES vehicles(patent)
+);
+
+DROP TABLE IF EXISTS carsapp_test.motocicles; -- Crea Tabla Motocicletas
+CREATE TABLE carsapp_test.motocicles(
+    id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    cylinder INT(11),
+    id_vehicle VARCHAR(11) NOT NULL REFERENCES vehicles(patent)
+);
+
+DROP TABLE IF EXISTS carsapp_test.others; -- Crea Tabla de otro vehiculo
+CREATE TABLE carsapp_test.others(
+    id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    c_other INT(11),
+    id_vehicle VARCHAR(11) NOT NULL REFERENCES vehicles(patent)
+);
