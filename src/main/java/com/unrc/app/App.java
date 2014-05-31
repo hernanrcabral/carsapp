@@ -2,6 +2,7 @@ package com.unrc.app;
 
 import org.javalite.activejdbc.Base;
 import com.unrc.app.models.User;
+import static spark.Spark.*;
 
 /**
  * Hello world!
@@ -14,21 +15,32 @@ public class App
         System.out.println( "Hello cruel World!" );
 
         Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/carsapp_development", "root", "root");
-        User user = new User();
-        user.set("first_name","Marilyn");
-        user.set("last_name", "Monroe");
-		user.set("email","monroe@hotmail.com");
-		user.set("pass","mmonroe112");
-        // user.set("dob", "1935-12-06");
-        user.saveIt();
+    
+        get("/users", (request,response) ->{
+            return User.findAll();
+        });
 
-        //User.createIt("first_name", "Marcelo", "last_name", "Uva");
+        get("/users", (request,response) ->{
+            return User.findByld(request.params(":id"));
+        });
 
         Base.close();
-         //get("/hello",(request, response) -> {
-         // return "Hello World!";
-     	// });
-   }
+       
+    
+
+
+//opcional--
+    get("/users",
+            (request,response) -> {
+                Map<String.objet> attrs = new HashMap<>();
+                    <User> users = user.findAll();
+                List
+                ahrs.put("user_count",users.size());)  
+                ahrs.put("userr",users);
+                return new ModelAndView(ahrs,"users.moustaches")
+
+
+    }
 }
 
 
