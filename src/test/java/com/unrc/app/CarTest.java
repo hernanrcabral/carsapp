@@ -1,7 +1,7 @@
 package com.unrc.app;
 
-import com.unrc.app.models.Vehicle;
 import com.unrc.app.models.Car;
+import com.unrc.app.models.User;
 
 import org.javalite.activejdbc.Base;
 import org.junit.After;
@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.javalite.test.jspec.JSpec.the;
-import static org.junit.Assert.assertEquals;													
+import static org.junit.Assert.assertEquals;                                                    
 
 
 public class CarTest{
@@ -22,38 +22,33 @@ public class CarTest{
 
     @After
     public void after(){
-        System.out.println("CarTest tearDown");				
+        System.out.println("CarTest tearDown");             
         Base.rollbackTransaction();
         Base.close();
     }
 
     @Test
     public void shouldValidateMandatoryFields(){
-       Car car= new Car();
-
+        Car car= new Car();
+        User user = new User();
+        
+        user.set("id",1,"first_name", "John", "last_name", "Doe", "email", "example@email.com");
+        user.save();
+     
        // check errors
         the(car).shouldNotBe("valid");
         the(car.errors().get("id_vehicle")).shouldBeEqual("value is missing");
         the(car.errors().get("count_doors")).shouldBeEqual("value is missing");
-		the(car.errors().get("id")).shouldBeEqual("value is missing");
+        the(car.errors().get("id")).shouldBeEqual("value is missing");
 
-
-        Vehicle vehicle= new Vehicle();
-    	 vehicle.set("patent", "HDK526", "kind", "307", "mark", "Fiat", "description"," Combustible: Diesel, Color: Negro. Sin uso. Muy pocos kilómetros. Excelente estado. Alarma. Papeles al día. Listo para transferir. ", "status", "Sell", "price", 32.393, "user_id",1, "city_id", 1);      
-		  vehicle.save();
-
-		// Create Vehicle
-    	 car.set("id",1, "id_vehicle", vehicle.get("patent"), "count_doors", 4);
-         car.save();
-
-		System.out.println(car);
+        // Create Vehicle
+        car.set("id",1, "id_vehicle", 1, "count_doors", 4);
+        car.save();
+        
+        System.out.println(car);
 
         // Everything is good:
         the(car).shouldBe("valid");
 
     }
 }
-
-
- 
-
