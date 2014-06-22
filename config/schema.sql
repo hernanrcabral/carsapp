@@ -47,7 +47,9 @@ DROP TABLE IF EXISTS carsapp_development.questions; -- Crea Tabla de Pregunta
 CREATE TABLE carsapp_development.questions
 (
     id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
-cccccccINT(11) NOT NULL REFERENCES answers(id)
+    description VARCHAR(200) NOT NULL,
+    user_id INT(11) NOT NULL REFERENCES users(id),
+    answer_id INT(11) NOT NULL REFERENCES answers(id)
 );
 
 DROP TABLE IF EXISTS carsapp_development.posts;     -- Crea Tabla de Publicaciones
