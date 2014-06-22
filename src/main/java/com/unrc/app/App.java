@@ -3,55 +3,6 @@ import static spark.Spark.*;
 
 import org.javalite.activejdbc.Base;
 import com.unrc.app.models.User;
-<<<<<<< HEAD
-=======
-import static spark.Spark.*;
-
-/**
- * Hello world!
- *
- */
-public class App 
-{
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello cruel World!" );
-
-        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/carsapp_development", "root", "root");
-    
-        get("/users", (request,response) ->{
-            return User.findAll();
-        });
-
-        get("/users", (request,response) ->{
-            return User.findByld(request.params(":id"));
-        });
-
-        Base.close();
-       
-    
-
-
-//opcional--
-    get("/users",
-            (request,response) -> {
-                Map<String.objet> attrs = new HashMap<>();
-                    <User> users = user.findAll();
-                List
-                ahrs.put("user_count",users.size());)  
-                ahrs.put("userr",users);
-                return new ModelAndView(ahrs,"users.moustaches")
-
-
-    }
-}
-
-
-
-/*package com.unrc.app;
-
-import org.javalite.activejdbc.Base;
->>>>>>> 5afebade3331c9cf17a6ddf8f3d693cf6af19ae4
 import com.unrc.app.models.Vehicle;
 import com.unrc.app.models.Post;
 import com.unrc.app.models.Question;
@@ -91,18 +42,18 @@ public class App
 
 
         get("/newUsers", (request,response) ->{
-			String  form= "<form action= \"/users \" method= \"post\">";
-			form += "Nombre: <input type=\"text\" name=\"first_name\" ><br>";
-			form += "Apellido: <input type=\"text\" name=\"last_name\" > <br> ";
-		   	form += "E-mail: <input type=\"text\" name=\"email\" > <br>";
-		 	form  +="<input value=\"Registrarse\" type=\"submit\" > <br>";
-			form +="</form>";
-			return form ;
-		});
+            String  form= "<form action= \"/users \" method= \"post\">";
+            form += "Nombre: <input type=\"text\" name=\"first_name\" ><br>";
+            form += "Apellido: <input type=\"text\" name=\"last_name\" > <br> ";
+            form += "E-mail: <input type=\"text\" name=\"email\" > <br>";
+            form  +="<input value=\"Registrarse\" type=\"submit\" > <br>";
+            form +="</form>";
+            return form ;
+        });
 
 
         get("/users", (request,response) -> {
-	       return User.findAll();
+           return User.findAll();
         });
     
         get("/users/:id", (request,response) -> {
@@ -287,7 +238,6 @@ public class App
             response.redirect("/vehicles");
             return "success";
          });
-
 
 
         get("/", (request,response) -> {
