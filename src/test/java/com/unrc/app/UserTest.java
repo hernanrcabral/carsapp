@@ -21,7 +21,7 @@ public class UserTest{
 
     @After
     public void after(){
-        System.out.println("UserTest tearDown");				
+        System.out.println("UserTest tearDown");                
         Base.rollbackTransaction();
         Base.close();
     }
@@ -34,9 +34,10 @@ public class UserTest{
         the(user.errors().get("first_name")).shouldBeEqual("value is missing");
         the(user.errors().get("last_name")).shouldBeEqual("value is missing");
         the(user.errors().get("email")).shouldBeEqual("value is missing");
-        the(user.errors().get("pass")).shouldBeEqual("value is missing");
+        
 
-        user.set("first_name", "John", "last_name", "Doe", "email", "jdoe@gmail.com","pass", "jdoe");
+        user.set("first_name", "John", "last_name", "Doe", "email", "jdoe@gmail.com");
+        user.save();
 
         // Everything is good:
         the(user).shouldBe("valid");
