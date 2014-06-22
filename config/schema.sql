@@ -40,6 +40,7 @@ CREATE TABLE carsapp_development.answers
 (
     id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
     description VARCHAR(200),
+    question_id  INT(11) NOT NULL REFERENCES questions(id),
     user_id INT(11) NOT NULL REFERENCES users(id) 
 );
 
@@ -49,7 +50,7 @@ CREATE TABLE carsapp_development.questions
     id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
     description VARCHAR(200) NOT NULL,
     user_id INT(11) NOT NULL REFERENCES users(id),
-    answer_id INT(11) NOT NULL REFERENCES answers(id)
+    post_id INT(11) NOT NULL REFERENCES posts(id)   
 );
 
 DROP TABLE IF EXISTS carsapp_development.posts;     -- Crea Tabla de Publicaciones
@@ -57,7 +58,6 @@ CREATE TABLE carsapp_development.posts(
     id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
     description VARCHAR(400) NOT NULL,
     user_id INT(11) NOT NULL REFERENCES users(id),
-    question_id  INT(11) NOT NULL REFERENCES questions(id),
     vehicle_id INT(11) NOT NULL REFERENCES vehicles(patent)     
 );
 
@@ -139,6 +139,7 @@ DROP TABLE IF EXISTS carsapp_test.answers;-- Crea Tabla de Respuesta
 CREATE TABLE carsapp_test.answers(
     id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
     description VARCHAR(200),
+    question_id  INT(11) NOT NULL REFERENCES questions(id),
     user_id INT(11) NOT NULL REFERENCES users(id) 
 );
 
@@ -147,7 +148,7 @@ CREATE TABLE carsapp_test.questions(
     id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
     description VARCHAR(200) NOT NULL,
     user_id INT(11) NOT NULL REFERENCES users(id),
-    answer_id INT(11) NOT NULL REFERENCES answers(id)
+    post_id INT(11) NOT NULL REFERENCES posts(id)   
 );
 
 DROP TABLE IF EXISTS carsapp_test.posts;-- Crea Tabla de Publicaciones
@@ -155,7 +156,6 @@ CREATE TABLE carsapp_test.posts(
     id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
     description VARCHAR(400) NOT NULL,
     user_id INT(11) NOT NULL REFERENCES users(id),
-    question_id  INT(11) NOT NULL REFERENCES questions(id),
     vehicle_id INT(11) NOT NULL REFERENCES vehicles(patent)     
 );
 
