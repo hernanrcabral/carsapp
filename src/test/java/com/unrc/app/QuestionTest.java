@@ -2,7 +2,7 @@ package com.unrc.app;
 
 import com.unrc.app.models.User;
 import com.unrc.app.models.Question;
-import com.unrc.app.models.Answer;
+import com.unrc.app.models.Post;
 
 import org.javalite.activejdbc.Base;
 import org.junit.After;
@@ -34,18 +34,22 @@ public class QuestionTest{
         the(question.errors().get("id")).shouldBeEqual("value is missing");        
         the(question.errors().get("description")).shouldBeEqual("value is missing");
         the(question.errors().get("user_id")).shouldBeEqual("value is missing");
-        the(question.errors().get("answer_id")).shouldBeEqual("value is missing");
+        the(question.errors().get("post_id")).shouldBeEqual("value is missing");
         
         User user = new User();
         user.set("id",1,"first_name", "John", "last_name", "Doe", "email", "example@email.com");
         user.save();
 
+        Post post=new Post();
+        post.set("id",1,"description","Vendo Vehiculo.Papeles al dia.","user_id",user.get("id"),"vehicle_id",1);
+        post.save();
+
 		// Create question
-    	 question.set("id",1,"description","¿Donde puedo ir a ver el auto?","user_id", user.get("id"),"answer_id", 4);
-         question.save();
+    	question.set("id",1,"description","¿Donde puedo verlo?","user_id", user.get("id"),"post_id",post.get("id"));
+        question.save();
 
 		  System.out.println(question);
-		  System.out.println(question.parent(User.class));
+	//	  System.out.println(question.parent(User.class));
 
 
         // Everything is good:
