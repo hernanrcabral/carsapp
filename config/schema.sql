@@ -39,7 +39,7 @@ DROP TABLE IF EXISTS carsapp_development.answers;  -- Crea Tabla de Respuesta
 CREATE TABLE carsapp_development.answers
 (
     id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    description VARCHAR(200),
+    answer VARCHAR(200),
     question_id  INT(11) NOT NULL REFERENCES questions(id),
     user_id INT(11) NOT NULL REFERENCES users(id) 
 );
@@ -48,7 +48,7 @@ DROP TABLE IF EXISTS carsapp_development.questions; -- Crea Tabla de Pregunta
 CREATE TABLE carsapp_development.questions
 (
     id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    description VARCHAR(200) NOT NULL,
+    question VARCHAR(200) NOT NULL,
     user_id INT(11) NOT NULL REFERENCES users(id),
     post_id INT(11) NOT NULL REFERENCES posts(id)   
 );
@@ -58,16 +58,10 @@ CREATE TABLE carsapp_development.posts(
     id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
     description VARCHAR(400) NOT NULL,
     user_id INT(11) NOT NULL REFERENCES users(id),
-    vehicle_id INT(11) NOT NULL REFERENCES vehicles(patent)     
+    vehicle_id VARCHAR (11) NOT NULL REFERENCES vehicles(patent)     
 );
 
-DROP TABLE IF EXISTS carsapp_development.rates; -- Crea Tabla de Calificación de las publicaciones
-CREATE TABLE carsapp_development.rates( 
-    id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    points INT(11) NOT NULL,
-    post_id INT(11) NOT NULL REFERENCES posts(id),
-    user_id INT(11) NOT NULL REFERENCES users(id)   
-);
+
 DROP TABLE IF EXISTS carssapp_development.cars; -- Crea Tabla Automovil
 CREATE TABLE carsapp_development.cars(
     id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
@@ -138,7 +132,7 @@ CREATE TABLE carsapp_test.vehicles(
 DROP TABLE IF EXISTS carsapp_test.answers;-- Crea Tabla de Respuesta
 CREATE TABLE carsapp_test.answers(
     id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    description VARCHAR(200),
+    answer VARCHAR(200),
     question_id  INT(11) NOT NULL REFERENCES questions(id),
     user_id INT(11) NOT NULL REFERENCES users(id) 
 );
@@ -146,7 +140,7 @@ CREATE TABLE carsapp_test.answers(
 DROP TABLE IF EXISTS carsapp_test.questions; -- Crea Tabla de Pregunta
 CREATE TABLE carsapp_test.questions(
     id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    description VARCHAR(200) NOT NULL,
+    question VARCHAR(200) NOT NULL,
     user_id INT(11) NOT NULL REFERENCES users(id),
     post_id INT(11) NOT NULL REFERENCES posts(id)   
 );
@@ -156,16 +150,10 @@ CREATE TABLE carsapp_test.posts(
     id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
     description VARCHAR(400) NOT NULL,
     user_id INT(11) NOT NULL REFERENCES users(id),
-    vehicle_id INT(11) NOT NULL REFERENCES vehicles(patent)     
+    vehicle_id VARCHAR (11) NOT NULL REFERENCES vehicles(patent)     
 );
 
-DROP TABLE IF EXISTS carsapp_test.rates; -- Crea Tabla de Calificación de las publicaciones
-CREATE TABLE carsapp_test.rates( 
-    id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    points INT(11) NOT NULL,
-    post_id INT(11) NOT NULL REFERENCES posts(id),
-    user_id INT(11) NOT NULL REFERENCES users(id)   
-);
+
 DROP TABLE IF EXISTS carssapp_test.cars; -- Crea Tabla Automovil
 CREATE TABLE carsapp_test.cars(
     id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
