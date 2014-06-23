@@ -4,7 +4,7 @@ import org.javalite.activejdbc.Model;
 
 public class Answer extends Model {
 	static{
-		validatePresenceOf("user_id","description","id","question_id");
+		validatePresenceOf("user_id","answer","question_id");
 	}
 }
 
