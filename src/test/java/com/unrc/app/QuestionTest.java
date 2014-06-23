@@ -31,8 +31,8 @@ public class QuestionTest{
 
        // check errors
         the(question).shouldNotBe("valid");
-        the(question.errors().get("id")).shouldBeEqual("value is missing");        
-        the(question.errors().get("description")).shouldBeEqual("value is missing");
+   
+        the(question.errors().get("question")).shouldBeEqual("value is missing");
         the(question.errors().get("user_id")).shouldBeEqual("value is missing");
         the(question.errors().get("post_id")).shouldBeEqual("value is missing");
         
@@ -44,12 +44,12 @@ public class QuestionTest{
         post.set("id",1,"description","Vendo Vehiculo.Papeles al dia.","user_id",user.get("id"),"vehicle_id",1);
         post.save();
 
-		// Create question
-    	question.set("id",1,"description","¿Donde puedo verlo?","user_id", user.get("id"),"post_id",post.get("id"));
+        // Create question
+        question.set("id",1,"question","¿Donde puedo verlo?","user_id", user.get("id"),"post_id",post.get("id"));
         question.save();
 
-		  System.out.println(question);
-	//	  System.out.println(question.parent(User.class));
+          System.out.println(question);
+    //    System.out.println(question.parent(User.class));
 
 
         // Everything is good:
