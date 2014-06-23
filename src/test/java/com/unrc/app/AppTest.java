@@ -7,7 +7,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ UserTest.class, RateTest.class })
+@SuiteClasses({ UserTest.class })
 public class AppTest {
     @BeforeClass
     public static void setUpClass() {
