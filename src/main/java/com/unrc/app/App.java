@@ -15,7 +15,8 @@ import com.unrc.app.models.Other;
 import com.unrc.app.models.Motocicle;
 
 import com.unrc.app.models.Answer;
-
+import spark.ModelAndView;
+//import spark.Spark;
 
 
 /**
@@ -52,12 +53,6 @@ public class App
             return form ;
         });
 
-
-        get("/users", (request,response) -> {
-           return User.findAll();
-        });
-
-
         post("/users", (request,response) ->{
             User newUser = new User();
             newUser.set("first_name",request.queryParams("first_name"));
@@ -68,7 +63,32 @@ public class App
             return "success";
          });
 
+
+        get("/users",(request, response) -> {
+                Map<String, Object> attributes = new HashMap<>();
+                List<User> users = User.findAll();
+                attributes.put("users_count", users.size());
+                attributes.put("users", users);
+                return new ModelAndView(attributes, "users.moustache");
+            },
+            new MustacheTemplateEngine()    
+
+        );
+
+ 
+        get("/users/:id", (request,response) -> {
+                Map<String, Object> attributes = new HashMap<>();
+                User user = User.findFirst("id = ?", request.params(":id"));
+                attributes.put("user", user);
+
+                return new ModelAndView(attributes, "userId.moustache");
+            },
+            new MustacheTemplateEngine()    
+        );
+
+
             // TRATO CUIDAD
+
 
         get("/newCities", (request,response) ->{
             String  form= "<form action= \"/cities \" method= \"post\">";
@@ -88,10 +108,35 @@ public class App
             return "success";
          });
 
+       /*
         get("/cities", (request,response) -> {
            return City.findAll();
         });
-        
+*/ 
+  
+
+        get("/cities", (request,response) ->{
+            Map<String, Object> attributes = new HashMap<>();
+            List<City> cities= City.findAll();
+            attributes.put("cities_count",cities.size());
+            attributes.put("cities",cities);
+            return new ModelAndView(attributes, "cities.moustache");
+            },
+            new MustacheTemplateEngine()    
+        );
+       
+
+        get("/cities/:id", (request,response) -> {
+                Map<String, Object> attributes = new HashMap<>();
+                City city = City.findFirst("id = ?", request.params(":id"));
+                attributes.put("city", city);
+                return new ModelAndView(attributes, "cityId.moustache");
+            },
+            new MustacheTemplateEngine()    
+
+        );
+ 
+
         //     TRATO DE VEHICULO
        
 
@@ -225,6 +270,7 @@ public class App
             response.redirect("/vehicles");
             return "success";
          });
+
 
         get("/vehicles", (request,response) -> {
            return Vehicle.findAll();
