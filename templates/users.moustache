@@ -1,0 +1,15 @@
+ <a href="http://localhost:4567/"> INICIO </a><br> 
+
+  <h1>USUARIOS</h1>
+
+  <h2> Cantidad total de usuarios: {{users_count}}</h2>
+
+  <table border="1">
+    {{#users}}
+        <tr>
+          <td><b>ID:</b>{{id}}</td>
+          <td><b>Email:</b>{{email}}</td>
+        </tr>
+    {{/users}}
+ </table>
+  
