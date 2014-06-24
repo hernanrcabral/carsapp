@@ -17,7 +17,7 @@ CREATE TABLE carsapp_development.users(
 drop table if exists carsapp_development.cities; -- Ciudad
 create table carsapp_development.cities(
     id int(11) not null auto_increment,
-    postal_code int(11) not null,   
+    postal_code int(11) UNIQUE,   
     name varchar(60) not null,
     constraint pk_city primary key (id)
 );
