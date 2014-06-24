@@ -1,0 +1,15 @@
+ <a href="http://localhost:4567/"> INICIO </a><br> 
+
+  <h1>Cuidades</h1>
+
+  <h2> Cantidad total de cuidades: {{cities_count}}</h2>
+
+  <table border="1">
+    {{#cities}}
+        <tr>
+          <td><b>ID:</b>{{id}}</td>
+          <td><b>Cuidad:</b>{{name}}</td>
+        </tr>
+    {{/cities}}
+ </table>
+  
