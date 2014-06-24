@@ -1,0 +1,13 @@
+<a href="http://localhost:4567/"> Inicio </a><br>
+ <b><h1>Ciudad</h1></b>
+
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    {{#city}}
+        <tr>
+          <td><b>ID:</b> {{id}} <br>
+              <b>Cuidad:</b> {{name}}<br>
+              <b>Codigo Postal:</b> {{postal_code}}</td><br>
+        </tr>
+    {{/city}}
+  </table>
+
