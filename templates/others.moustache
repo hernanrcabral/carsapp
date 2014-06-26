@@ -1,0 +1,15 @@
+ <a href="http://localhost:4567/hello"><font color="black"><em> INICIO </em></font></a><br> 
+
+  <h1><font color="black"><em>OTROS</em></font></h1>
+
+  <h2><font color="black"><em> Total de Otros Vehiculos: {{other_count}}</em></font></h2>
+
+  <table border="1">
+    {{#others}}
+        <tr>
+          <td><font color="black"><em><b>Patente:</b>{{id_vehicle}}</em></font></td>
+          <td><font color="black"><em><b>Datos:</b>{{c_other}}</em></font></td>
+       </tr>
+    {{/others}}  
+  </table>
+  
