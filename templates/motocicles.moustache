@@ -1,0 +1,15 @@
+ <a href="http://localhost:4567/hello"><font color="black"><em> INICIO </em></font></a><br> 
+
+  <h1><font color="black"><em> MOTOS</em></font></h1>
+
+  <h2> <font color="black"><em> Cantidad total de motos: {{motocicles_count}}</em></font></h2>
+
+  <table border="1">
+    {{#motocicles}}
+        <tr>
+          <td><font color="black"><em> <b>Patente:</b>{{id_vehicle}}</em></font></td>
+          <td><font color="black"><em> <b>Cilindradas:</b>{{cylinder}}</em></font></td>
+        </tr>
+    {{/motocicles}}  
+  </table>
+  
