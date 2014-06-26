@@ -1,15 +1,14 @@
- <a href="http://localhost:4567/"> INICIO </a><br> 
+ <a href="http://localhost:4567/hello"><font color="black"><em> INICIO </em></font></a><br> 
 
-  <h1>Cuidades</h1>
+  <h1><font color="black"><em>Cuidades</em></font></h1>
 
-  <h2> Cantidad total de cuidades: {{cities_count}}</h2>
+  <h2><font color="black"><em>Cantidad total de cuidades: {{cities_count}}</em></font></h2>
 
   <table border="1">
     {{#cities}}
         <tr>
-          <td><b>ID:</b>{{id}}</td>
-          <td><b>Cuidad:</b>{{name}}</td>
+          <td><font color="black"><em>ID:{{id}}</em></font></td>
+          <td><font color="black"><em>Cuidad:{{name}}</em></font></td>
         </tr>
     {{/cities}}
  </table>
-  
