@@ -1,0 +1,12 @@
+ <a href="http://localhost:4567/hello"><font color="black"><em> INICIO </em></font></a><br> 
+ <b><h1><font color="black"><em>RESPUESTA</h1></b>
+
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    {{#answer}}
+        <tr>
+          <td><b><font color="black"><em>Usuario:</b>{{user_id}}</em></font></td>
+          <td><b><font color="black"><em>Pregunta:</b>{{question_id}}</em></font></td>
+	  <td><b><font color="black"><em>Respuesta:</b>{{answer}}</em></font></td>
+        </tr>
+    {{/answer}}
+  </table>
