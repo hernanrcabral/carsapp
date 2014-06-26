@@ -1,0 +1,17 @@
+ <a href="http://localhost:4567/hello"><font color="black"><em> INICIO </em></font></a><br> 
+
+  <h1><font color="black"><em>PUBLICACION</em></font></h1>
+
+  <h2><font color="black"><em>Cantidad total de publicaciones: </em></font><font color="black"><em>{{posts_count}}</em></font></h2>	
+ 
+ <table border="1">
+    {{#posts}}
+        <tr>
+          <td><b><font color="black"><em>Usuario:</em></font></b><font color="black"><em>{{user_id}}</em></font></td>
+          <td><b><font color="black"><em>Patente:</em></font></b><font color="black"><em>{{vehicle_id}}</em></font></td>
+	  <td><b><font color="black"><em>Pregunta:</em></font></b><font color="black"><em>{{description}}</em></font></td>
+        </tr>
+    {{/posts}}
+ </table>
+
+</body>
