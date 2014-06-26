@@ -37,13 +37,10 @@ public class TruckTest{
 
        // check errors
         the(truck).shouldNotBe("valid");
-        the(truck.errors().get("id_vehicle")).shouldBeEqual("value is missing");
         the(truck.errors().get("count_belt")).shouldBeEqual("value is missing");
-        the(truck.errors().get("id")).shouldBeEqual("value is missing");
-
 
         // Create Vehicle
-        truck.set("id",1, "id_vehicle", 1, "count_belt", 1234);
+        truck.set("id_vehicle", "ABD121", "count_belt", 1234);
         truck.save();
  //       truck.setParent(user);
 
