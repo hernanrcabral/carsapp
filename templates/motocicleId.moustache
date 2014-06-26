@@ -1,0 +1,15 @@
+ <a href="http://localhost:4567/hello"><font color="black"><em> INICIO </em></font></a><br> 
+ <b><h1><font color="black"><em>Moto</em></font></h1></b>
+
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    {{#motocicle}}
+        <tr>
+          <td><font color="black"><em><b>Patente:</b> {{id_vehicle}}</em></font><br>
+              <font color="black"><em><b>Cilindradas:</b> {{cylinder}}</em></font><br></td>
+        </tr>
+    {{/motocicle}}
+  </table>
+
+
+
+  
