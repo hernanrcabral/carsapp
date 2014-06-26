@@ -2,7 +2,7 @@
 -- Integrantes: Garcia Silvia - Bueno Maria Victoria - Zabala Ana Carolina - Gomez Seyla Damaris
 --
 drop database if exists carsapp_development;
-create database if not exists carsapp_development;
+create database carsapp_development;
 
 DROP TABLE IF EXISTS carsapp_development.users; -- Usuarios
 CREATE TABLE carsapp_development.users(
@@ -27,37 +27,35 @@ CREATE TABLE carsapp_development.vehicles(
     patent VARCHAR (11) not null, 
     kind VARCHAR(11) not null,
     mark  VARCHAR(11) not null,
-    description VARCHAR (400),
-    price DECIMAL not null,
-    status VARCHAR(40) not null,
-    user_id int (11) not null references users(id),
-    city_id int(11) not null references cities(id),
+    user_id VARCHAR(60) not null references users(email),
+    city_id VARCHAR(60) not null references cities(name),
     constraint pk_vehicle primary key (patent)
 );  
+
+DROP TABLE IF EXISTS carsapp_development.questions;  -- Crea Tabla de Respuesta
+CREATE TABLE carsapp_development.questions
+(
+    id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    question VARCHAR(200) not null,
+    post_id VARCHAR(400) NOT NULL REFERENCES posts(description),
+    user_id VARCHAR(60) NOT NULL REFERENCES users(email) 
+);
+
 
 DROP TABLE IF EXISTS carsapp_development.answers;  -- Crea Tabla de Respuesta
 CREATE TABLE carsapp_development.answers
 (
     id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
     answer VARCHAR(200),
-    question_id  INT(11) NOT NULL REFERENCES questions(id),
-    user_id INT(11) NOT NULL REFERENCES users(id) 
-);
-
-DROP TABLE IF EXISTS carsapp_development.questions; -- Crea Tabla de Pregunta
-CREATE TABLE carsapp_development.questions
-(
-    id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    question VARCHAR(200) NOT NULL,
-    user_id INT(11) NOT NULL REFERENCES users(id),
-    post_id INT(11) NOT NULL REFERENCES posts(id)   
+    question_id  VARCHAR(200) NOT NULL REFERENCES questions(question),
+    user_id VARCHAR(60) NOT NULL REFERENCES users(email) 
 );
 
 DROP TABLE IF EXISTS carsapp_development.posts;     -- Crea Tabla de Publicaciones
 CREATE TABLE carsapp_development.posts(
     id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
     description VARCHAR(400) NOT NULL,
-    user_id INT(11) NOT NULL REFERENCES users(id),
+    user_id VARCHAR(60) NOT NULL REFERENCES users(email),
     vehicle_id VARCHAR (11) NOT NULL REFERENCES vehicles(patent)     
 );
 
@@ -65,7 +63,7 @@ CREATE TABLE carsapp_development.posts(
 DROP TABLE IF EXISTS carssapp_development.cars; -- Crea Tabla Automovil
 CREATE TABLE carsapp_development.cars(
     id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    count_doors INT(11),   
+    count_doors VARCHAR(11),   
     id_vehicle VARCHAR(11) NOT NULL REFERENCES vehicles(patent)
     
 );
@@ -73,21 +71,21 @@ CREATE TABLE carsapp_development.cars(
 DROP TABLE IF EXISTS carsapp_development.trucks; -- Crea Tabla Camionetas
 CREATE TABLE carsapp_development.trucks(
     id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    count_belt INT(11),
+    count_belt VARCHAR(11),
     id_vehicle VARCHAR(11) NOT NULL REFERENCES vehicles(patent)
 );
 
 DROP TABLE IF EXISTS carsapp_development.motocicles; -- Crea Tabla Motocicletas
 CREATE TABLE carsapp_development.motocicles(
     id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    cylinder INT(11),
+    cylinder VARCHAR(11),
     id_vehicle VARCHAR(11) NOT NULL REFERENCES vehicles(patent)
 );
 
 DROP TABLE IF EXISTS carsapp_development.others; -- Crea Tabla De Otros vehiculos 
 CREATE TABLE carsapp_development.others(
     id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    c_other INT(11),
+    c_other VARCHAR(200),
     id_vehicle VARCHAR(11) NOT NULL REFERENCES vehicles(patent)
 );
 
@@ -96,7 +94,7 @@ CREATE TABLE carsapp_development.others(
 --
 --
 drop database if exists carsapp_test;
-create database if not exists carsapp_test;
+create database carsapp_test;
 
 DROP TABLE IF EXISTS carsapp_test.users; -- Usuarios
 CREATE TABLE carsapp_test.users(
@@ -121,43 +119,40 @@ CREATE TABLE carsapp_test.vehicles(
     patent VARCHAR (11) not null, 
     kind VARCHAR(11) not null,
     mark  VARCHAR(11) not null,
-    description VARCHAR (400),
-    price DECIMAL not null,
-    status VARCHAR(40) not null,
-    user_id int (11) not null references users(id),
-    city_id int(11) not null references cities(id),
+    user_id VARCHAR(60) not null references users(email),
+    city_id VARCHAR(60) not null references cities(name),
     constraint pk_vehicle primary key (patent)
 );  
 
-DROP TABLE IF EXISTS carsapp_test.answers;-- Crea Tabla de Respuesta
+
+DROP TABLE IF EXISTS carsapp_test.answers;  -- Crea Tabla de Respuesta
 CREATE TABLE carsapp_test.answers(
     id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
     answer VARCHAR(200),
-    question_id  INT(11) NOT NULL REFERENCES questions(id),
-    user_id INT(11) NOT NULL REFERENCES users(id) 
+    question_id  VARCHAR(200) REFERENCES questions(question),
+    user_id VARCHAR(60) NOT NULL REFERENCES users(email) 
 );
-
 DROP TABLE IF EXISTS carsapp_test.questions; -- Crea Tabla de Pregunta
 CREATE TABLE carsapp_test.questions(
     id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
     question VARCHAR(200) NOT NULL,
-    user_id INT(11) NOT NULL REFERENCES users(id),
-    post_id INT(11) NOT NULL REFERENCES posts(id)   
+    user_id VARCHAR(60) NOT NULL REFERENCES users(email),
+    post_id VARCHAR(400) NOT NULL REFERENCES posts(description)   
 );
 
 DROP TABLE IF EXISTS carsapp_test.posts;-- Crea Tabla de Publicaciones
 CREATE TABLE carsapp_test.posts(
     id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
     description VARCHAR(400) NOT NULL,
-    user_id INT(11) NOT NULL REFERENCES users(id),
-    vehicle_id VARCHAR (11) NOT NULL REFERENCES vehicles(patent)     
+    user_id VARCHAR(60) NOT NULL REFERENCES users(email),
+    vehicle_id VARCHAR(11) NOT NULL REFERENCES vehicles(patent)     
 );
 
 
 DROP TABLE IF EXISTS carssapp_test.cars; -- Crea Tabla Automovil
 CREATE TABLE carsapp_test.cars(
     id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    count_doors INT(11),   
+    count_doors VARCHAR(11),   
     id_vehicle VARCHAR(11) NOT NULL REFERENCES vehicles(patent)
     
 );
@@ -165,7 +160,7 @@ CREATE TABLE carsapp_test.cars(
 DROP TABLE IF EXISTS carsapp_test.trucks; -- Crea Tabla Camionetas
 CREATE TABLE carsapp_test.trucks(
     id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    count_belt INT(11),
+    count_belt VARCHAR(11),
     id_vehicle VARCHAR(11) NOT NULL REFERENCES vehicles(patent)
 );
 
@@ -179,6 +174,6 @@ CREATE TABLE carsapp_test.motocicles(
 DROP TABLE IF EXISTS carsapp_test.others; -- Crea Tabla de otro vehiculo
 CREATE TABLE carsapp_test.others(
     id INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    c_other INT(11),
+    c_other VARCHAR(50),
     id_vehicle VARCHAR(11) NOT NULL REFERENCES vehicles(patent)
 );
