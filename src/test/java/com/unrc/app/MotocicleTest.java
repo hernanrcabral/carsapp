@@ -1,6 +1,5 @@
 package com.unrc.app;
 
-import com.unrc.app.models.Vehicle;
 import com.unrc.app.models.Motocicle;
 
 import org.javalite.activejdbc.Base;
@@ -33,17 +32,10 @@ public class MotocicleTest{
 
        // check errors
         the(motocicle).shouldNotBe("valid");
-        the(motocicle.errors().get("id_vehicle")).shouldBeEqual("value is missing");
         the(motocicle.errors().get("cylinder")).shouldBeEqual("value is missing");
-		the(motocicle.errors().get("id")).shouldBeEqual("value is missing");
-
-
-        Vehicle vehicle= new Vehicle();
-    	 vehicle.set("patent", "HDK526", "kind", "307", "mark", "Fiat", "description"," Combustible: Diesel, Color: Negro. Sin uso. Muy pocos kilómetros. Excelente estado. Alarma. Papeles al día. Listo para transferir. ", "status", "Sell", "price", 32.393, "user_id",1, "city_id", 1);      
-		  vehicle.save();
 
 		// Create Vehicle
-    	 motocicle.set("id",1, "id_vehicle", vehicle.get("patent"), "cylinder", 250);
+    	 motocicle.set("id_vehicle", "ASD123", "cylinder", 250);
          motocicle.save();
 
 		System.out.println(motocicle);
