@@ -1,0 +1,16 @@
+ <a href="http://localhost:4567/hello"><font color="black"><em> INICIO </em></font></a><br> 
+
+ <b><h1>Camioneta</h1></b>
+
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    {{#truck}}
+        <tr>
+          <td><b><font color="black"><em>Patente:</b> {{id_vehicle}}</em></font><br>
+              <b><font color="black"><em>Cantidad de Cinturones:</b> {{count_belt}}</em></font><br></td>
+        </tr>
+    {{/truck}}
+  </table>
+
+
+
+  
