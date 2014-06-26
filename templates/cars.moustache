@@ -1,0 +1,15 @@
+ <a href="http://localhost:4567/hello"><font color="black"><em> INICIO </em></font></a><br> 
+
+  <h1><font color="black"><em>AUTOS</em></font></h1>
+
+  <h2><font color="black"><em>Cantidad total de autos: {{cars_count}}</em></font></h2>
+
+  <table border="1">
+    {{#cars}}
+        <tr>
+          <td><font color="black"><em><b>Patente:</b>{{id_vehicle}}</em></font></td>
+          <td><font color="black"><em><b>Cantidad de Puestas:</b>{{count_doors}}</em></font></td>
+        </tr>
+    {{/cars}}  
+  </table>
+</body>  
