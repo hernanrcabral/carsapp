@@ -16,7 +16,7 @@ import com.unrc.app.models.Motocicle;
 
 import com.unrc.app.models.Answer;
 import spark.ModelAndView;
-//import spark.Spark;
+import spark.Spark;
 
 
 /**
@@ -33,25 +33,27 @@ public class App
         before ((request, response) -> {
         Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/carsapp_development", "root", "root");
         });
-      
+
         get("/hello",(request, response) -> {
-            return "Hello World!";
-         });
+            Map<String, Object> attributes = new HashMap<>();
+            return new ModelAndView(attributes, "hello.mustache");
+        },
+         new MustacheTemplateEngine()
+        );
 
 
-       //
-        //   TRATO USUARIO
-        //
+
+//-------------------------------------------------------------------------------------------
+//                  TRATO USUARIO
+//-------------------------------------------------------------------------------------------
+
 
         get("/newUsers", (request,response) ->{
-            String  form= "<form action= \"/users \" method= \"post\">";
-            form += "Nombre: <input type=\"text\" name=\"first_name\" ><br>";
-            form += "Apellido: <input type=\"text\" name=\"last_name\" > <br> ";
-            form += "E-mail: <input type=\"text\" name=\"email\" > <br>";
-            form  +="<input value=\"Registrarse\" type=\"submit\" > <br>";
-            form +="</form>";
-            return form ;
-        });
+            Map<String, Object> attributes = new HashMap<>();
+            return new ModelAndView(attributes, "newUsers.moustache");
+        },
+            new MustacheTemplateEngine()
+        );
 
         post("/users", (request,response) ->{
             User newUser = new User();
@@ -59,7 +61,7 @@ public class App
             newUser.set("last_name",request.queryParams("last_name"));
             newUser.set("email",request.queryParams("email"));
             newUser.saveIt();
-            response.redirect("/users");
+            response.redirect("/hello");
             return "success";
          });
 
@@ -72,7 +74,6 @@ public class App
                 return new ModelAndView(attributes, "users.moustache");
             },
             new MustacheTemplateEngine()    
-
         );
 
  
@@ -87,33 +88,29 @@ public class App
         );
 
 
-            // TRATO CUIDAD
+//-------------------------------------------------------------------------------------------
+//                               TRATO CIUDAD
+//-------------------------------------------------------------------------------------------
+
 
 
         get("/newCities", (request,response) ->{
-            String  form= "<form action= \"/cities \" method= \"post\">";
-            form += "Nombre: <input type=\"text\" name=\"name\" ><br>";
-            form += "Codigo Postal: <input type=\"text\" name=\"postal_code\" ><br>";
-            form +="<input value=\"Guardar\" type=\"submit\" > <br>";
-            form +="</form>";
-            return form ;
-        });
+            Map<String, Object> attributes = new HashMap<>();
+            return new ModelAndView(attributes, "newCities.moustache");
+        },
+            new MustacheTemplateEngine()
+        );
 
         post("/cities", (request,response) ->{
             City newCity = new City();
             newCity.set("postal_code",request.queryParams("postal_code"));
             newCity.set("name",request.queryParams("name"));
             newCity.saveIt();
-            response.redirect("/cities");
+            response.redirect("/hello");
             return "success";
          });
 
-       /*
-        get("/cities", (request,response) -> {
-           return City.findAll();
-        });
-*/ 
-  
+ 
 
         get("/cities", (request,response) ->{
             Map<String, Object> attributes = new HashMap<>();
@@ -137,11 +134,22 @@ public class App
         );
  
 
-        //     TRATO DE VEHICULO
-       
+//-------------------------------------------------------------------------------------------
+//               TRATO VEHICULO
+//-------------------------------------------------------------------------------------------
+
+ /*
+        get("/newVehicles", (request,response) ->{
+            Map<String, Object> attributes = new HashMap<>();
+            return new ModelAndView(attributes, "newVehicles.moustache");
+        },
+            new MustacheTemplateEngine()
+        );
+
+*/
 
         get("newVehicles", (request,response) ->{
-            String  form= "<form action= \"/vehicles \" method= \"post\">";
+             String  form= "<form action= \"/vehicles \" method= \"post\">";
             form +="Patente: <input type=\"text\" name=\"patent\" ><br>";
             form +="Modelo: <input type=\"text\" name=\"kind\" > <br> ";
 
@@ -167,9 +175,6 @@ public class App
             form+="</select><br>";
 
             form +="Marca: <input type=\"text\" name=\"mark\" > <br>";
-            form +="Estado: <input type=\"text\" name=\"status\" > <br>";
-            form +="Precio: <input type=\"text\" name=\"price\" > <br>";
-            form +="Descripcion: <input type=\"text\" name=\"description\" > <br>";
 
             form+="Tipo Vehiculo : ";
             form+="<select name=\"type\">";
@@ -189,7 +194,7 @@ public class App
             form+="<option value=\"4\">Cuatro</option>";
             form+="<option value=\"5\">Cinco</option>";
             form+="<option value=\"6\">Seis</option>";
-            form+="<option value=\"7\">Siete</option>";
+            form+="<option value=\"7\">Mas</option>";
             form+="</select><br>";
 
             form+="<br> Motocicleta: <br>";
@@ -216,72 +221,180 @@ public class App
         });
 
 
-
         post("/vehicles", (request,response) ->{
 
            Vehicle newVehicle = new Vehicle(); 
-           String mail = request.queryParams("email");
+            String mail = request.queryParams("email");
            String cod_postal = request.queryParams("postal_code");
 
            City c = City.findFirst("postal_code = ?",cod_postal);
            User d = User.findFirst("email = ?",mail);
                 
-            newVehicle.set("user_id",d.get("id"));
-            newVehicle.set("city_id",c.get("id"));
-            newVehicle.set("status",request.queryParams("status"));
+            newVehicle.set("user_id",d.get("email"));
+            newVehicle.set("city_id",c.get("name"));
             newVehicle.set("patent",request.queryParams("patent"));
             newVehicle.set("kind",request.queryParams("kind"));
             newVehicle.set("mark",request.queryParams("mark"));
-            newVehicle.set("description",request.queryParams("description")); 
-            newVehicle.set("price",request.queryParams("price"));         
+        
             newVehicle.saveIt();
 
-            if (request.queryParams("type")=="1"){
+            if (request.queryParams("type").charAt(0)=='1'){
                 Car a= new Car();
                 a.set("count_doors",request.queryParams("num"));
                 a.set("id_vehicle",newVehicle.getString("patent"));
                 a.saveIt();
-            }else{
-                if (request.queryParams("type")=="2"){
+            }
+            if (request.queryParams("type").charAt(0)=='2'){
                 Truck t= new Truck();
                 t.set("count_belt",request.queryParams("cant"));
                 t.set("id_vehicle",newVehicle.getString("patent"));
                 t.saveIt();
-                }
-                else{
-                    if (request.queryParams("type")=="3"){
-                    Motocicle m= new Motocicle();
-                    m.set("cylinder",request.queryParams("cylinder"));
-                    m.set("id_vehicle",newVehicle.getString("patent"));
-                    m.saveIt();
-                    }
-                    else{
-                        if (request.queryParams("type")=="4"){
-                           Other o = new Other();
-                            o.set("c_other",request.queryParams("c_other"));
-                            o.set("id_vehicle",newVehicle.getString("patent"));
-                            o.saveIt();
-                        }
-                    }
-                }
             }
-
-
-            response.redirect("/vehicles");
+            if (request.queryParams("type").charAt(0)=='3'){
+                Motocicle m= new Motocicle();
+                m.set("cylinder",request.queryParams("cylinder"));
+                m.set("id_vehicle",newVehicle.getString("patent"));
+                m.saveIt();
+            }
+            if (request.queryParams("type").charAt(0)=='4'){
+                Other o = new Other();
+                o.set("c_other",request.queryParams("c_other"));
+                o.set("id_vehicle",newVehicle.getString("patent"));
+                o.saveIt();
+            }
+                    
+            response.redirect("/hello");
             return "success";
          });
 
+        
 
-        get("/vehicles", (request,response) -> {
-           return Vehicle.findAll();
-        });
+        get("/vehicles", (request,response) ->{
+            Map<String, Object> attributes= new HashMap<>();
+            List<Vehicle> vehicles= Vehicle.findAll();
+            attributes.put("vehicles_count",vehicles.size());
+            attributes.put("vehicles", vehicles);
+            return new ModelAndView(attributes,"vehicles.moustache");
+            },
+            new MustacheTemplateEngine()
+        );
+
+        get("/vehicles/:patent", (request,response) -> {
+            Map<String, Object> attributes= new HashMap<>();
+            Vehicle vehicle = Vehicle.findFirst("patent = ?",request.params("patent"));
+            attributes.put("vehicle",vehicle);
+            return new ModelAndView(attributes, "vehicleId.moustache");
+            },
+            new MustacheTemplateEngine()    
+        );
+
+//-------------------------------------------------------------------------------------------
+//                  TRATO AUTOS
+//-------------------------------------------------------------------------------------------
 
 
-            //
-            //      TRATO PUBLICACION
-            //
 
-          get("/newPosts", (request,response) ->{
+        get("/cars",(request,response)->{
+            Map<String, Object> attributes = new HashMap<>();
+            List<Car> cars = Car.findAll();
+            attributes.put("cars_count", cars.size());
+            attributes.put("cars", cars);
+            return new ModelAndView(attributes,"cars.moustache");
+        },
+         new MustacheTemplateEngine()
+        ); 
+       
+
+        get("/cars/:patent", (request,response) -> {
+            Map<String, Object> attributes= new HashMap<>();
+            Car auto= Car.findFirst("id_vehicle = ?",request.params("patent"));
+            attributes.put("car",auto);
+            return new ModelAndView(attributes,"carId.moustache");  
+            },
+            new MustacheTemplateEngine()
+        );
+
+//-------------------------------------------------------------------------------------------
+//                     TRATO CAMIONETAS
+//-------------------------------------------------------------------------------------------
+
+         get("/trucks",(request,response)->{
+            Map<String, Object> attributes = new HashMap<>();
+            List<Truck> camionetas = Truck.findAll();
+            attributes.put("trucks_count", camionetas.size());
+            attributes.put("trucks",camionetas); 
+            return new ModelAndView(attributes, "trucks.moustache");
+            },
+            new MustacheTemplateEngine()
+        );
+
+        get("/trucks/:patent", (request,response) -> {
+            Map<String, Object> attributes = new HashMap<>();
+            Truck camioneta = Truck.findFirst("id_vehicle = ?",request.params("patent"));
+            attributes.put("truck",camioneta); 
+            return new ModelAndView(attributes, "truckId.moustache");
+            },
+            new MustacheTemplateEngine()
+        );
+
+
+//-------------------------------------------------------------------------------------------
+//                   TRATO MOTOCICLETAS
+//-------------------------------------------------------------------------------------------
+
+
+         get("/motocicles", (request,response) ->{
+            Map<String, Object> attributes = new HashMap<>();
+            List<Motocicle> motos = Motocicle.findAll();
+            attributes.put("motocicles_count",motos.size());
+            attributes.put("motocicles",motos); 
+            return new ModelAndView(attributes, "motocicles.moustache");
+            },
+            new MustacheTemplateEngine()
+        );
+
+        get("/motocicles/:patent", (request,response) -> {
+            Map<String, Object> attributes = new HashMap<>();
+            Motocicle moto = Motocicle.findFirst("id_vehicle = ?",request.params("patent"));
+            attributes.put("motocicle",moto); 
+            return new ModelAndView(attributes, "motocicleId.moustache");
+            },
+            new MustacheTemplateEngine()
+        );
+
+
+
+//-------------------------------------------------------------------------------------------
+//                      TRATO OTRO TIPOS DE VEHICULOS
+//-------------------------------------------------------------------------------------------
+
+
+        get("/others", (request,response) ->{
+            Map<String, Object> attributes = new HashMap<>();
+            List<Other> otros = Other.findAll();
+            attributes.put("others_count",otros.size());
+            attributes.put("others",otros); 
+            return new ModelAndView(attributes, "others.moustache");
+            },
+            new MustacheTemplateEngine()
+        );
+
+        get("/others/:patent", (request,response) -> {
+            Map<String, Object> attributes = new HashMap<>();
+            Other otro = Other.findFirst("id_vehicle = ?",request.params("patent"));
+            attributes.put("other",otro); 
+            return new ModelAndView(attributes, "otherId.moustache");
+            },
+            new MustacheTemplateEngine()
+        );
+
+
+
+//-------------------------------------------------------------------------------------------
+//                             TRATO PUBLICACION
+//-------------------------------------------------------------------------------------------
+  
+        get("/newPosts", (request,response) ->{
             String  form= "<form action= \"/posts \" method= \"post\">";
 
             form +="Email: ";         
@@ -313,37 +426,57 @@ public class App
             return form ;
         });
 
-        get("/posts", (request,response) ->{
-            return Post.findAll();
-        });
-
 
         post("/posts", (request,response) ->{
             Post newPost = new Post();
-        
-           String mail = request.queryParams("email");
-           User d = User.findFirst("email = ?",mail);
+
+            String mail = request.queryParams("email");
+            String pat = request.queryParams("patent");
+            
+            User d = User.findFirst("email = ?",mail);
+            Vehicle p = Vehicle.findFirst("patent = ?",pat);
 
 
-            newPost.set("user_id",d.get("id"));
 
-            newPost.set("vehicle_id",request.queryParams("patent"));
+            newPost.set("user_id",d.get("email"));
+            newPost.set("vehicle_id",p.get("patent"));
             newPost.set("description",request.queryParams("description"));
             newPost.saveIt();         
 
-            response.redirect("/posts");
+            response.redirect("/hello");
   
           return "success";
          });
 
 
-        //
-        //      TRATO LAS PREGUNTAS
-        //
+    get("/posts",(request, response) -> {
+                Map<String, Object> attributes = new HashMap<>();
+                List<Post> posts = Post.findAll();
+                attributes.put("post_count", posts.size());
+                attributes.put("posts", posts);
+                return new ModelAndView(attributes, "posts.moustache");
+            },
+            new MustacheTemplateEngine()    
 
-        get("/newQuestions", (request,response) ->{
-            String  form= "<form action= \"/questions \" method= \"post\">";
+        );
 
+ 
+        get("/post/:id", (request,response) -> {
+                Map<String, Object> attributes = new HashMap<>();
+                Post post = Post.findFirst("id = ?", request.params(":id"));
+                attributes.put("post", post);
+                return new ModelAndView(attributes, "postId.moustache");
+            },
+            new MustacheTemplateEngine()    
+        );
+
+//-------------------------------------------------------------------------------------------
+//                                TRATO LAS PREGUNTAS
+//-------------------------------------------------------------------------------------------
+
+        get("/newQuestions", (request,response) -> {
+        String  form= "<form action= \"/questions \" method= \"post\">";
+    
             form +="Email Usuario que realiza la pregunta: ";         
             // seleccionar el usuario q corresponde la pregunta a agregar
             form+="<select name=\"email\">";
@@ -374,28 +507,43 @@ public class App
         });
 
 
-        get("/questions", (request,response) ->{
-            return Question.findAll();
-        });
-
-
         post("/questions", (request,response) ->{
             Question newQuestion = new Question();
             String mail = request.queryParams("email");
             String desc = request.queryParams("description");
             
-
             User d = User.findFirst("email = ?",mail);
             Post p = Post.findFirst("description = ?",desc);
 
-            newQuestion.set("user_id",d.get("id"));  
-            newQuestion.set("post_id",p.get("id")); 
+            newQuestion.set("user_id",d.get("email"));  
+            newQuestion.set("post_id",p.get("description")); 
             newQuestion.set("question",request.queryParams("question"));
             newQuestion.saveIt();
 
-            response.redirect("/questions");
+            response.redirect("/hello");
             return "success";
          });
+
+        get("/questions",(request, response) -> {
+                Map<String, Object> attributes = new HashMap<>();
+                List<Question> questions = Question.findAll();
+                attributes.put("questions_count", questions.size());
+                attributes.put("questions", questions);
+                return new ModelAndView(attributes, "questions.moustache");
+            },
+            new MustacheTemplateEngine()    
+
+        );
+
+ 
+        get("/question/:id", (request,response) -> {
+                Map<String, Object> attributes = new HashMap<>();
+                Question question = Question.findFirst("id = ?", request.params(":id"));
+                attributes.put("question", question);
+                return new ModelAndView(attributes, "questionId.moustache");
+            },
+            new MustacheTemplateEngine()    
+        );
 
          //
         //      TRATO LAS RESPUESTAS
@@ -431,12 +579,7 @@ public class App
         });
 
 
-        get("/answers", (request,response) ->{
-            return Answer.findAll();
-        });
-
-
-        post("/answers", (request,response) ->{
+       post("/answers", (request,response) ->{
             Answer newAnswer = new Answer();
 
             String preg = request.queryParams("question");
@@ -445,18 +588,35 @@ public class App
             Question q = Question.findFirst("question = ?",preg);
             User d = User.findFirst("email = ?",mail);
 
-            newAnswer.set("user_id",d.get("id"));
-            newAnswer.set("question_id",q.get("id"));
+            newAnswer.set("user_id",d.get("email"));
+            newAnswer.set("question_id",q.get("question"));
             newAnswer.set("answer",request.queryParams("answer"));
             newAnswer.saveIt();
-            response.redirect("/answers");
+            response.redirect("/hello");
             return "success";
          });
-        get("/", (request,response) -> {
-            return "Hello world cruel";
-        });
-  
-    
+        
+        get("/answers",(request, response) -> {
+                Map<String, Object> attributes = new HashMap<>();
+                List<Answer> answers = Answer.findAll();
+                attributes.put("answers_count", answers.size());
+                attributes.put("answers", answers);
+                return new ModelAndView(attributes, "answers.moustache");
+            },
+            new MustacheTemplateEngine()    
+
+        );
+
+ 
+        get("/answer/:id", (request,response) -> {
+                Map<String, Object> attributes = new HashMap<>();
+                Answer answer = Answer.findFirst("id = ?", request.params(":id"));
+                attributes.put("answer", answer);
+                return new ModelAndView(attributes, "answerId.moustache");
+            },
+            new MustacheTemplateEngine()    
+        );
+ 
 
        after ((request,response)-> {
         Base.close();           
