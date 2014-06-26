@@ -1,0 +1,12 @@
+ <a href="http://localhost:4567/hello"><font color="black"><em> INICIO </em></font></a><br>  
+
+  <h1><font color="black"><em>PUBLICACION</em></font></h1>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    {{#post}}
+        <tr>
+          <td><b><font color="black"><em>Usuario:</b>{{user_id}}</em></font></td><br>
+          <td><b><font color="black"><em>Patente:</b>{{vehicle_id}}</em></font></td><br>
+	  <td><b><font color="black"><em>Pregunta:</b>{{description}}</em></font></td><br>
+        </tr>
+    {{/post}}
+  </table>
