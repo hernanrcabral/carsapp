@@ -1,15 +1,17 @@
- <a href="http://localhost:4567/"> INICIO </a><br> 
+ <a href="http://localhost:4567/hello"><font color="black"><em> INICIO </em></font></a><br> 
 
-  <h1>USUARIOS</h1>
+  <h1><font color="black"><em>USUARIOS</em></font></h1>
 
-  <h2> Cantidad total de usuarios: {{users_count}}</h2>
+<h2><font color="black"><em>Cantidad total de usuarios: </em></font><font color="black"><em>{{users_count}}</em></font></h2>  
 
   <table border="1">
     {{#users}}
         <tr>
-          <td><b>ID:</b>{{id}}</td>
-          <td><b>Email:</b>{{email}}</td>
+          <td><b><font color="black"><em>ID :</em></font></b></font></b><font color="black"><em>{{id}}</em></font></td>
+	  <td><b><font color="black"><em> Nombre :</em></font></b></font></b><font color="black"><em>{{first_name}}</em></font><td><br>
+	  <td><b><font color="black"><em> Apellido:</em></font></b></font></b><font color="black"><em>{{last_name}}</em></font><td><br>	
+          <td><b><font color="black"><em>Email:</em></font></b></font></b><font color="black"><em>{{email}}</em></font></td>
         </tr>
     {{/users}}
  </table>
-  
+
