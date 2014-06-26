@@ -1,0 +1,14 @@
+ <a href="http://localhost:4567/hello"><font color="black"><em> INICIO </em></font></a><br> 
+ <b><h1>Vehiculo</h1></b>
+
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    {{#vehicle}}
+        <tr>
+          <td><b><font color="black"><em>Patente:</b> {{patent}}</em></font> <br>
+	   		<b><font color="black"><em>Modelo:</b> {{kind}} </em></font><br>
+	   		<b><font color="black"><em>Usuario:</b>{{user_id}}</em></font> <br>
+	   		<b><font color="black"><em>Ciudad:</b>{{city_id}} </em></font><br>
+       	<b><font color="black"><em>Marca:</b> {{mark}}</em></font></td><br>
+        </tr>
+    {{/vehicle}}
+  </table>
