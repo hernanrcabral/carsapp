@@ -1,0 +1,15 @@
+ <a href="http://localhost:4567/hello"><font color="black"><em> INICIO</em></font> </a><br> 
+
+  <h1><font color="black"><em>RESPUESTAS</em></font></h1>
+
+  <h2><font color="black"><em>Cantidad total de respuestas: </em></font> <font color="black"><em>{{answers_count}}</em></font></h2>
+
+  <table border="1">
+    {{#answers}}
+        <tr>
+          <td><b><font color="black"><em>Usuario:</em></font></b><font color="black"><em>{{user_id}}</em></font></td>
+          <td><b><font color="black"><em>Pregunta:</em></font></b><font color="black"><em>{{question_id}}</em></font></td>
+	  	  <td><b><font color="black"><em>Respuesta:</em></font></b><font color="black"><em>{{answer}}</em></font></td>
+        </tr>
+    {{/answers}} 
+</table>
