@@ -138,15 +138,6 @@ public class App
 //               TRATO VEHICULO
 //-------------------------------------------------------------------------------------------
 
- /*
-        get("/newVehicles", (request,response) ->{
-            Map<String, Object> attributes = new HashMap<>();
-            return new ModelAndView(attributes, "newVehicles.moustache");
-        },
-            new MustacheTemplateEngine()
-        );
-
-*/
 
         get("newVehicles", (request,response) ->{
              String  form= "<form action= \"/vehicles \" method= \"post\">";
