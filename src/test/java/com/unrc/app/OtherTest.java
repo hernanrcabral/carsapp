@@ -31,13 +31,11 @@ public class OtherTest{
      
        // check errors
         the(other).shouldNotBe("valid");
-        the(other.errors().get("id_vehicle")).shouldBeEqual("value is missing");
         the(other.errors().get("c_other")).shouldBeEqual("value is missing");
-        the(other.errors().get("id")).shouldBeEqual("value is missing");
 
 
         // Create Vehicle
-        other.set("id",1, "id_vehicle", 1, "c_other", 5);
+        other.set("id_vehicle",1,"c_other","Cuatriciclo");
         other.save();
 //      other.setParent(user);
 
