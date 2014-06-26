@@ -1,8 +1,7 @@
 package com.unrc.app;
 
-import com.unrc.app.models.User;
 import com.unrc.app.models.Post;
-import com.unrc.app.models.Vehicle;
+
 
 import org.javalite.activejdbc.Base;
 import org.junit.After;
@@ -34,19 +33,14 @@ public class PostTest{
        // check errors
         the(post).shouldNotBe("valid");
         the(post.errors().get("description")).shouldBeEqual("value is missing");
-        the(post.errors().get("user_id")).shouldBeEqual("value is missing");
-        the(post.errors().get("vehicle_id")).shouldBeEqual("value is missing");
-        
-        User user = new User();
-        user.set("id",1,"first_name", "John", "last_name", "Doe", "email", "example@email.com");
-        user.save();
+
 
         // Create Vehicle
-         post.set("id", 1,"description","Excelente Oferta","user_id", user.get("id"),"vehicle_id",3);
+         post.set("id", 1,"description","Excelente Oferta","user_id","nuevo@gmail.com","vehicle_id","ABC123");
          post.save();
 
          System.out.println(post);
-    //  System.out.println(post.parent(User.class));
+
 
 
         // Everything is good:
