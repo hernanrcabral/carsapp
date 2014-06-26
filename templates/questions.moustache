@@ -1,0 +1,20 @@
+<body background="http://newartcars.com/data_images/gallery/chevrolet-corvette/chevrolet-corvette-07.jpg">
+
+ <a href="http://localhost:4567/hello"><font color="black"><em> INICIO </em></font></a><br> 
+
+  <h1><font color="black"><em>PREGUNTAS</em></font></h1>
+
+  <h2><font color="black"><em>Cantidad total de preguntas: </em></font><font color="black"><em>{{questions_count}}</em></font></h2>
+
+  <table border="1">
+    {{#questions}}
+        <tr>
+        <td><b><font color="black"><em>Usuario:</em></font></b><font color="black"><em>{{user_id}}</em></font></td>
+          
+	      <td><b><font color="black"><em>Publicacion:</b></em></font><font color="black"><em>{{post_id}}</em></font></td>
+        <td><b><font color="black"><em>Pregunta:</b></em></font><font color="black"><em>{{question}}</em></font></td>
+        </tr>
+    {{/questions}}
+ </table>
+
+</body>
