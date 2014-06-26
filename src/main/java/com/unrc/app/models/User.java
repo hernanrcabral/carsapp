@@ -19,5 +19,11 @@ public class User extends Model {
   		return this.getString("first_name");
   	}
 
+    public String last_name (){
+      return this.getString("last_name");
+    }
+
+
+
 }
 
