@@ -2,6 +2,12 @@ package com.unrc.app.models;
 
 import org.javalite.activejdbc.Model;
 
+import com.unrc.app.ElasticSearch;
+import java.util.*;
+
+import org.elasticsearch.action.get.GetResponse;
+import org.elasticsearch.action.search.SearchResponse;
+
 public class User extends Model {
  static {
       validatePresenceOf("first_name", "last_name","email");
@@ -23,7 +29,48 @@ public class User extends Model {
       return this.getString("last_name");
     }
 
+   
+    public void afterCreate(){
 
+      Map<String, Object> json = new HashMap<>();
+      json.put("name", this.get("first_name"));
+      json.put("surname",this.get("last_name"));
+      json.put("email", this.get("email"));
+      json.put("id", this.getId());
+
+      ElasticSearch.client().prepareIndex("users", "user",String.valueOf(this.getId()))
+                            .setSource(json)
+                            .execute()
+                            .actionGet();
+      getUserElasticsearch();
+      
+    }
+
+     public void getUserElasticsearch(){
+         GetResponse response = ElasticSearch.client().prepareGet("users", "user", String.valueOf(this.getId()))
+                                                   .execute()
+                                                   .actionGet();
+            
+         System.out.println("source---"+response.getSource());
+     }  
+
+    //Busca si el id del Usuario existe
+    public static Boolean existUser(int user_id){
+        return (User.first("id = ? ", user_id) != null);
+    }
+   
+    
+    // Busca el id del Usuario, si existe, lo borra de 
+    public static void deleteUser(int user_id){
+     if(existUser(user_id)){
+         User.delete("id = ?", user_id);
+         Vehicle.delete("user_id=?", user_id);
+         Post.delete("user_id=?", user_id);
+         Answer.delete("user_id=?", user_id);
+         Question.delete("user_id=?", user_id);
+        }
+        
+    }
 
 }
 
