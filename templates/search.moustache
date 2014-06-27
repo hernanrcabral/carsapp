@@ -1,0 +1,18 @@
+ <a href="http://localhost:4567/hello"><font color="black"><em> INICIO </em></font></a><br> 
+
+  <h1><font color="black"><em>RESULTADOS</em></font></h1>
+
+  <table border="1">
+    {{#results}}
+        <tr>
+          <td><font color="black"><em><b>ID:</b> {{id}} - <a href="posts/{{id}}">{{description}}</a> - <b>Autor de Publicacion:</b> <a href="users/{{usrId}}">{{usrEmail}}</a></em></font></td><br>
+        </tr>
+    {{/results}}  
+    {{^results}}
+    		 <td><font color="black"><em><b>No se encuentran resultados.</b></em></font></td>
+    {{/results}}
+
+  </table>
+
+
+  
