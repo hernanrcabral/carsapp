@@ -17,7 +17,14 @@ import com.unrc.app.models.Motocicle;
 import com.unrc.app.models.Answer;
 import spark.ModelAndView;
 import spark.Spark;
+import org.elasticsearch.node.*;
+import org.elasticsearch.client.*;
 
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.search.SearchType;
+import org.elasticsearch.index.query.QueryBuilders.*;
+import org.elasticsearch.index.query.*;
 
 /**
  * Hello world!
@@ -25,7 +32,17 @@ import spark.Spark;
  */
 public class App 
 {
-    public static void main( String[] args )
+    public static final Node node = org.elasticsearch.node
+                                        .NodeBuilder
+                                        .nodeBuilder()
+                                        .clusterName("carsapp")
+                                        .local(true)
+                                        .node();
+    public static Client client(){
+        return node.client();
+    }
+
+   public static void main( String[] args )
     {
          
         System.out.println( "Hello cruel World!" );
@@ -41,8 +58,49 @@ public class App
          new MustacheTemplateEngine()
         );
 
+//-------------------------------------------------------------------------------------------
+//                  BUSCA
+//-------------------------------------------------------------------------------------------
 
 
+
+        get("/newSearch", (request,response) ->{
+            Map<String, Object> attributes = new HashMap<>();
+            return new ModelAndView(attributes, "newSearch.moustache");
+        },
+            new MustacheTemplateEngine()
+        );
+
+        post ("/search",(request, response) ->{
+            String query = new String();
+            if(request.queryParams("query") == null){
+                response.redirect("/hello");
+            }else{
+                query = request.queryParams("query");
+            }
+            SearchResponse res = client().prepareSearch("users")
+                            .setQuery(QueryBuilders.matchQuery("last_name", query))
+                            .execute()
+                            .actionGet();
+
+            List<Map<String,Object>> queryResult = new LinkedList<Map<String,Object>>();
+            SearchHit[] hits = res.getHits().getHits();
+            for (SearchHit hit : hits) {
+                Map<String,Object> result = hit.getSource();
+                queryResult.add(result);
+            }
+
+            Map<String,Object> attributes = new HashMap<String,Object>();
+            
+            attributes.put("results",false);
+            if (!queryResult.isEmpty()) {
+                attributes.put("results",true);
+                attributes.put("print",queryResult);
+            }
+            return new ModelAndView(attributes,"search.moustache");
+        },
+            new MustacheTemplateEngine()
+        );
 //-------------------------------------------------------------------------------------------
 //                  TRATO USUARIO
 //-------------------------------------------------------------------------------------------
