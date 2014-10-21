@@ -12,6 +12,7 @@ CREATE TABLE carsapp_development.users(
     last_name VARCHAR(56),
   CONSTRAINT users_pk PRIMARY KEY (id)
 );
+ALTER TABLE carsapp_development.users ADD rol VARCHAR(20) NULL;
 
 
 drop table if exists carsapp_development.cities; -- Ciudad
