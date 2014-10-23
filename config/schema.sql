@@ -12,6 +12,7 @@ CREATE TABLE carsapp_development.users(
     last_name VARCHAR(56),
   CONSTRAINT users_pk PRIMARY KEY (id)
 );
+ALTER TABLE carsapp_development.users ADD role VARCHAR(20) NOT NULL;
 
 
 drop table if exists carsapp_development.cities; -- Ciudad
@@ -104,6 +105,7 @@ CREATE TABLE carsapp_test.users(
     last_name VARCHAR(56),
   CONSTRAINT users_pk PRIMARY KEY (id)
 );
+ALTER TABLE carsapp_test.users ADD role VARCHAR(20) NOT NULL; 
 
 -- CREO LA BASE DE DATOS DE LAS CIUDADES QUE POSEEN EL VEHICULO 
 drop table if exists carsapp_test.cities;
