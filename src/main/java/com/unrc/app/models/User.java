@@ -10,7 +10,7 @@ import org.elasticsearch.action.search.SearchResponse;
 
 public class User extends Model {
  static {
-      validatePresenceOf("first_name", "last_name","email");
+      validatePresenceOf("first_name", "last_name","email", "role");
   }
   
   	public String email (){
@@ -25,10 +25,13 @@ public class User extends Model {
   		return this.getString("first_name");
   	}
 
-    public String last_name (){
-      return this.getString("last_name");
-    }
-
+    	public String last_name (){
+      		return this.getString("last_name");
+    	}
+	
+	public String role (){
+      		return this.getString("role");
+    	}
    
     public void afterCreate(){
 
@@ -36,6 +39,7 @@ public class User extends Model {
       json.put("name", this.get("first_name"));
       json.put("surname",this.get("last_name"));
       json.put("email", this.get("email"));
+      json.put("role", this.get("role"));	
       json.put("id", this.getId());
 
       ElasticSearch.client().prepareIndex("users", "user",String.valueOf(this.getId()))

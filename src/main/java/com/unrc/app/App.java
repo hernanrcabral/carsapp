@@ -41,7 +41,7 @@ public class App
         Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/carsapp_development", "root", "root");
         });
 
-        get("/hello",(request, response) -> {
+        get("/",(request, response) -> { // "/hello"
             Map<String, Object> attributes = new HashMap<>();
             return new ModelAndView(attributes, "hello.mustache");
         },
@@ -66,8 +66,9 @@ public class App
             newUser.set("first_name",request.queryParams("first_name"));
             newUser.set("last_name",request.queryParams("last_name"));
             newUser.set("email",request.queryParams("email"));
+	    newUser.set("role","user");
             newUser.saveIt();
-            response.redirect("/hello");
+            response.redirect("/");
             return "success";
          });
 
