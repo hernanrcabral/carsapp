@@ -1,66 +1,91 @@
 <html>
 
 <head>
+<style type="text/css">
+<!-- body {background: url("http://strangera.files.wordpress.com/2008/04/2008_astonmartin_dbs1.jpg") no-repeat center;
+		   background-size: 100% 
+}
+->	
+</style>
 <title>Carsapp</title>
 </head>
 
-<body background="http://strangera.files.wordpress.com/2008/04/2008_astonmartin_dbs1.jpg" width="100%">
+<h1><center><font color="white">BIENVENIDOS</font></center></h1>
 
-<h1><center><font color="white">Compra y Venta de Vehiculos</font></center></h1>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
 
+<font face= "vendana" size="5" color="aqua"><b>¿Eres Nuevo? Registrate</b></font><br>
 
-<p ALIGN=right>
-<font color="aqua"><em>Mostrar</em></font>
-</p>
+<FORM method=post action="/users">
 
-<p ALIGN=left>
-<a href="http://localhost:4567/newUsers"><font color="white"><em>Crear Usuario</em></font></a>
-</p>
+<br><TABLE BORDER=0>
 
-<p ALIGN=right>
-<a href="http://localhost:4567/users"><font color="white"><em>Usuarios</em></font></a>	
-</p>
+<TR>
+  <TD><font color="aqua">Nombre:</font></TD>
+  <TD>
+  <INPUT type="text" name="first_name">
+  </TD>
+</TR>
 
-<p ALIGN=left>
-<a href="http://localhost:4567/newCities"><font color="white"><em>Crear Ciudad</em></font></a>
-</p>
+<TR>
+  <TD><font color="aqua">Apellido:</font></TD>
+  <TD>
+  <INPUT type="text" name="last_name">
+  </TD>
+</TR>
 
-<p ALIGN=right>
-<a href="http://localhost:4567/cities"><font color="white"><em>Ciudades</em></font></a>
-</p>
+<TR>
+  <TD><font color="aqua">E-mail:</font></TD>
+  <TD>
+  <INPUT type="text" name="email">
+  </TD>
+</TR>
 
-<p ALIGN=left>
-<a href="http://localhost:4567/newVehicles"><font color="white"><em>Crear Vehiculo</em></font></a>
-</p>
+<TR>
+  <TD><font color="aqua">Contraseña:</font></TD>
+  <TD>
+  <INPUT type="password" name="password">
+  </TD>
+</TR>
 
-<p ALIGN=right>
-<a href="http://localhost:4567/vehicles"><font color="white"><em>Vehiculos</em></font></a>
-</p>
+<TR>
+  <TD COLSPAN=2>
+  <INPUT type="submit" value="Registrarse">
+  </TD>
+</TR>
+</TABLE>
+</FORM>
 
-<p ALIGN=left>
-<a href="http://localhost:4567/newPosts"><font color="white"><em>Crear Publicacion</em></font></a>
-</p>
+<br>
+</br>
 
-<p ALIGN=right>
-<a href="http://localhost:4567/posts"><font color="white"><em>Publicaciones</em></font></a>
-</p>
+<font face= "vendana" size="5" color="aqua"><b>Usuario Registrado</b></font><br>
 
-<p ALIGN=left>
-<a href="http://localhost:4567/newQuestions"><font color="white"><em>Crear Pregunta</em></font></a>
-</p>
+<FORM method=post action="/users">
 
-<p ALIGN=right>
-<a href="http://localhost:4567/questions"><font color="white"><em>Preguntas</em></font></a>
-</p>
+<br><TABLE BORDER=0>
 
-<p ALIGN=left>
-<a href="http://localhost:4567/newAnswers"><font color="white"><em>Crear Respuesta</em></font></a>
-</p>
+<TR>
+  <TD><font color="aqua">E-mail:</font></TD>
+  <TD>
+  <INPUT type="text" name="email">
+  </TD>
+</TR>
 
-<p ALIGN=right>
-<a href="http://localhost:4567/answers"><font color="white"><em>Respuestas</em></font></a>
-</p>
+<TR>
+  <TD><font color="aqua">Contraseña:</font></TD>
+  <TD>
+  <INPUT type="password" name="password">
+  </TD>
+</TR>
+
+<TR>
+  <TD COLSPAN=2>
+  <INPUT type="submit" value="Iniciar Sesion">
+  </TD>
+</TR>
+</TABLE>
+</FORM>
 
 </body>
-
-</html
+</html>

@@ -48,6 +48,14 @@ public class App
          new MustacheTemplateEngine()
         );
 
+        get("/hell2",(request, response) -> { // Agregamos un metodo nuevo
+            Map<String, Object> attributes = new HashMap<>();
+            return new ModelAndView(attributes, "hell2.mustache");
+        },
+         new MustacheTemplateEngine()
+        );
+
+
 
 //-------------------------------------------------------------------------------------------
 //                  TRATO USUARIO
@@ -66,9 +74,10 @@ public class App
             newUser.set("first_name",request.queryParams("first_name"));
             newUser.set("last_name",request.queryParams("last_name"));
             newUser.set("email",request.queryParams("email"));
-	    newUser.set("role","user");
+            newUser.set("password",request.queryParams("password"));
+	        newUser.set("role","user");
             newUser.saveIt();
-            response.redirect("/");
+            response.redirect("/hell2");
             return "success";
          });
 

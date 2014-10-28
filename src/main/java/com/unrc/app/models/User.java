@@ -10,7 +10,7 @@ import org.elasticsearch.action.search.SearchResponse;
 
 public class User extends Model {
  static {
-      validatePresenceOf("first_name", "last_name","email", "role");
+      validatePresenceOf("first_name", "last_name","email", "role", "password");
   }
   
   	public String email (){
@@ -33,12 +33,17 @@ public class User extends Model {
       		return this.getString("role");
     	}
    
+    public String password (){
+  		return this.getString("password");
+  	}
+
     public void afterCreate(){
 
       Map<String, Object> json = new HashMap<>();
       json.put("name", this.get("first_name"));
       json.put("surname",this.get("last_name"));
       json.put("email", this.get("email"));
+      json.put("password", this.get("password"));
       json.put("role", this.get("role"));	
       json.put("id", this.getId());
 
