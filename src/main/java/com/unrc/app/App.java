@@ -20,6 +20,7 @@ import spark.Spark;
 import org.elasticsearch.node.*;
 import org.elasticsearch.client.*;
 
+
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
@@ -32,6 +33,9 @@ import org.elasticsearch.index.query.*;
  */
 public class App 
 {
+   private static final String SESSION_NAME = "username";
+   private static String rol;
+   	
    public static void main( String[] args )
     {
          
@@ -40,13 +44,23 @@ public class App
         before ((request, response) -> {
         Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/carsapp_development", "root", "root");
         });
+        
+        
+        get("/", (request, response) -> {
+			request.session(true);
+            String name = request.session().attribute(SESSION_NAME);
+            if (name == null) {
+				Map<String, Object> attributes = new HashMap<>();
+				return new ModelAndView(attributes, "hello.mustache");
+				
 
-        get("/",(request, response) -> { // "/hello"
-            Map<String, Object> attributes = new HashMap<>();
-            return new ModelAndView(attributes, "hello.mustache");
+            } else {
+				Map<String, Object> attributes = new HashMap<>();
+				return new ModelAndView(attributes, "hell2.mustache");		
+            }
         },
-         new MustacheTemplateEngine()
-        );
+            new MustacheTemplateEngine()
+            );
 
         get("/hell2",(request, response) -> { // Agregamos un metodo nuevo
             Map<String, Object> attributes = new HashMap<>();
@@ -54,7 +68,20 @@ public class App
         },
          new MustacheTemplateEngine()
         );
-
+		
+		get("/hell",(request, response) -> { // Agregamos un metodo nuevo
+            Map<String, Object> attributes = new HashMap<>();
+            return new ModelAndView(attributes, "hell.mustache");
+        },
+         new MustacheTemplateEngine()
+        );
+        
+        get("/hell1",(request, response) -> { // Agregamos un metodo nuevo
+            Map<String, Object> attributes = new HashMap<>();
+            return new ModelAndView(attributes, "hell1.mustache");
+        },
+         new MustacheTemplateEngine()
+        );
 
 
 //-------------------------------------------------------------------------------------------
@@ -71,6 +98,8 @@ public class App
 
         post("/users", (request,response) ->{
             User newUser = new User();
+            request.session().attribute(SESSION_NAME, request.queryParams("email"));
+            rol = "user";
             newUser.set("first_name",request.queryParams("first_name"));
             newUser.set("last_name",request.queryParams("last_name"));
             newUser.set("email",request.queryParams("email"));
@@ -80,7 +109,27 @@ public class App
             response.redirect("/hell2");
             return "success";
          });
-
+         
+         post("/login", (request,response) ->{
+			User usuarioLog = User.findFirst("email = ?", request.queryParams("email"));
+			
+			if  (usuarioLog.password().matches(request.queryParams("password"))){
+				request.session().attribute(SESSION_NAME, usuarioLog.email());
+            
+				if (usuarioLog.role().matches("user")){ 
+					response.redirect("/hell2");
+				}
+				if (usuarioLog.role().matches("admin")){ 
+					response.redirect("/hell");
+				}	
+				if (usuarioLog.role().matches("super")){
+					response.redirect("/hell1");
+				}
+			}	else{
+				response.redirect("/");
+			}
+            return "success";
+         });
 
         get("/users",(request, response) -> {
                 Map<String, Object> attributes = new HashMap<>();

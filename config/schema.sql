@@ -15,6 +15,9 @@ CREATE TABLE carsapp_development.users(
 ALTER TABLE carsapp_development.users ADD role VARCHAR(20) NOT NULL;
 ALTER TABLE carsapp_development.users ADD password VARCHAR(20) NOT NULL;
 
+INSERT INTO carsapp_development.users (id,email,first_name,last_name,role,password)
+   VALUES (1,'admin@admin','super','admin','super','superadmin');
+
 drop table if exists carsapp_development.cities; -- Ciudad
 create table carsapp_development.cities(
     id int(11) not null auto_increment,
