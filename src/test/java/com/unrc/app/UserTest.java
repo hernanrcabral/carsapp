@@ -36,7 +36,7 @@ public class UserTest{
         the(user.errors().get("email")).shouldBeEqual("value is missing");
         the(user.errors().get("role")).shouldBeEqual("value is missing");
 
-        user.set("first_name", "John", "last_name", "Doe", "email", "jdoe@gmail.com" , "role" , "user");
+        user.set("first_name", "John", "last_name", "Doe", "email", "jdoe@gmail.com" , "role" , "user","password","12345");
         user.save();
 
         // Everything is good:

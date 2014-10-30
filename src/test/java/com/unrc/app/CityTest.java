@@ -35,6 +35,7 @@ public class CityTest{
         the(city.errors().get("postal_code")).shouldBeEqual("value is missing");
 
         city.set("name", "General Deheza", "postal_code", 5923);
+        city.save();
         // Everything is good:
         the(city).shouldBe("valid");
     }
