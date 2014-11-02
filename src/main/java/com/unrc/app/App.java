@@ -34,7 +34,7 @@ import org.elasticsearch.index.query.*;
 public class App 
 {
    private static final String SESSION_NAME = "username";
-   private static String rol;
+   private static String rol = "";
    	
    public static void main( String[] args )
     {
@@ -61,6 +61,13 @@ public class App
         },
             new MustacheTemplateEngine()
             );
+
+        get("/HError",(request, response) -> { // Agregamos un metodo nuevo
+            Map<String, Object> attributes = new HashMap<>();
+            return new ModelAndView(attributes, "HError.mustache");
+        },
+         new MustacheTemplateEngine()
+        );
 
         get("/hell2",(request, response) -> { // Agregamos un metodo nuevo
             Map<String, Object> attributes = new HashMap<>();
@@ -99,14 +106,20 @@ public class App
         post("/users", (request,response) ->{
             User newUser = new User();
             request.session().attribute(SESSION_NAME, request.queryParams("email"));
-            rol = "user";
             newUser.set("first_name",request.queryParams("first_name"));
             newUser.set("last_name",request.queryParams("last_name"));
             newUser.set("email",request.queryParams("email"));
             newUser.set("password",request.queryParams("password"));
-	        newUser.set("role","user");
-            newUser.saveIt();
-            response.redirect("/hell2");
+	        if (rol.matches("super")){
+	        	newUser.set("role","admin");
+	        	response.redirect("/hell1");
+	        }else{
+	        	newUser.set("role","user");
+	        	rol = "user";
+	        	response.redirect("/hell2");
+	        }
+	        newUser.saveIt();
+            
             return "success";
          });
          
@@ -115,7 +128,7 @@ public class App
 			
 			if  (usuarioLog.password().matches(request.queryParams("password"))){
 				request.session().attribute(SESSION_NAME, usuarioLog.email());
-            
+            	rol = usuarioLog.role();
 				if (usuarioLog.role().matches("user")){ 
 					response.redirect("/hell2");
 				}
@@ -126,7 +139,7 @@ public class App
 					response.redirect("/hell1");
 				}
 			}	else{
-				response.redirect("/");
+				response.redirect("/HError");
 			}
             return "success";
          });
