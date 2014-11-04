@@ -1,6 +1,7 @@
 <body background="http://strangera.files.wordpress.com/2008/04/2008_astonmartin_dbs1.jpg">
 
 <font color="aqua"><em><u>Nuevo Usuario</u></em></font><br>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
 
 <FORM method=post action="/users">
 
@@ -23,6 +24,13 @@
 	<TD><font color="aqua"><em>Email:</em></font></TD>
 	<TD>
 	<INPUT type="text" name="email">
+	</TD>
+</TR>
+
+<TR>
+	<TD><font color="aqua"><em>Contraseña:</em></font></TD>
+	<TD>
+	<INPUT type="password" name="password">
 	</TD>
 </TR>
 
