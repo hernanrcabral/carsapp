@@ -1,4 +1,5 @@
 package com.unrc.app;
+import com.unrc.app.controller.UserController;
 import static spark.Spark.*;
 
 import org.javalite.activejdbc.Base;
@@ -96,72 +97,30 @@ public class App
 //-------------------------------------------------------------------------------------------
 
 
-        get("/newUsers", (request,response) ->{
-            Map<String, Object> attributes = new HashMap<>();
-            return new ModelAndView(attributes, "newUsers.moustache");
-        },
+        get("/newUsers", (request,response) -> 
+            UserController.getnewUser(request, response)
+            ,
             new MustacheTemplateEngine()
         );
 
-        post("/users", (request,response) ->{
-            User newUser = new User();
-            request.session().attribute(SESSION_NAME, request.queryParams("email"));
-            newUser.set("first_name",request.queryParams("first_name"));
-            newUser.set("last_name",request.queryParams("last_name"));
-            newUser.set("email",request.queryParams("email"));
-            newUser.set("password",request.queryParams("password"));
-	        if (rol.matches("super")){
-	        	newUser.set("role","admin");
-	        	response.redirect("/hell1");
-	        }else{
-	        	newUser.set("role","user");
-	        	rol = "user";
-	        	response.redirect("/hell2");
-	        }
-	        newUser.saveIt();
-            
-            return "success";
-         });
+        post("/users", (request,response) ->
+            UserController.postUser(request, response)
+         );
          
-         post("/login", (request,response) ->{
-			User usuarioLog = User.findFirst("email = ?", request.queryParams("email"));
-			
-			if  (usuarioLog.password().matches(request.queryParams("password"))){
-				request.session().attribute(SESSION_NAME, usuarioLog.email());
-            	rol = usuarioLog.role();
-				if (usuarioLog.role().matches("user")){ 
-					response.redirect("/hell2");
-				}
-				if (usuarioLog.role().matches("admin")){ 
-					response.redirect("/hell");
-				}	
-				if (usuarioLog.role().matches("super")){
-					response.redirect("/hell1");
-				}
-			}	else{
-				response.redirect("/HError");
-			}
-            return "success";
-         });
+         post("/login", (request,response) ->
+             UserController.postLogin(request,response)
+         );
 
-        get("/users",(request, response) -> {
-                Map<String, Object> attributes = new HashMap<>();
-                List<User> users = User.findAll();
-                attributes.put("users_count", users.size());
-                attributes.put("users", users);
-                return new ModelAndView(attributes, "users.moustache");
-            },
+        get("/users",(request, response) -> 
+             UserController.getUser(request, response)
+            ,
             new MustacheTemplateEngine()    
         );
 
  
-        get("/users/:id", (request,response) -> {
-                Map<String, Object> attributes = new HashMap<>();
-                User user = User.findFirst("id = ?", request.params(":id"));
-                attributes.put("user", user);
-
-                return new ModelAndView(attributes, "userId.moustache");
-            },
+        get("/users/:id", (request,response) -> 
+            UserController.getUserId(request, response)
+            ,
             new MustacheTemplateEngine()    
         );
 
