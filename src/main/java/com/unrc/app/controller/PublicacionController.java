@@ -4,6 +4,10 @@
  * and open the template in the editor.
  */
 package com.unrc.app.controller;
+import static spark.Spark.*;
+
+import org.javalite.activejdbc.Base;
+import java.util.*;
 
 import com.unrc.app.models.Post;
 import com.unrc.app.models.User;
@@ -21,7 +25,7 @@ import spark.Response;
  */
 public class PublicacionController {
     
-    public static ModelAndView getnewPublicacion(Request request, Response response) {
+    public static String getnewPublicacion(Request request, Response response) {
         String form= "<form action= \"/posts \" method= \"post\">";
         form +="Email: ";
         // selecciona el usuario q corresponde al post a agregar
@@ -47,10 +51,10 @@ public class PublicacionController {
         form +="<input value=\"Guardar\" type=\"submit\" > <br>";
         form +="</form>";
         
-        return new ModelAndView(null,form);
+        return form;
     }
     
-    public static String postsPublicacion(Request request, Response response){
+    public static String postsPublicacion(Request request, Response response, String role){
         Post newPost = new Post();
 
         String mail = request.queryParams("email");
@@ -64,7 +68,13 @@ public class PublicacionController {
         newPost.set("description",request.queryParams("description"));
         newPost.saveIt();         
 
-        response.redirect("/hello");
+        String a ;
+          if (role.matches("super")){
+                a="/hell1";
+          }else{
+                a="/hell";
+         }
+        response.redirect(a);
   
         return "success";
     }

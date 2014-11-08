@@ -1,5 +1,3 @@
- <a href="http://localhost:4567/hello"><font color="black"><em> INICIO </em></font></a><br> 
-
   <h1>CAMIONETAS</h1>
 
   <h2> Cantidad total de camionetas: {{trucks_count}}</h2>

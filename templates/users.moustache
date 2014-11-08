@@ -1,5 +1,3 @@
- <a href="http://localhost:4567/hello"><font color="black"><em> INICIO </em></font></a><br> 
-
   <h1><font color="black"><em>USUARIOS</em></font></h1>
 
 <h2><font color="black"><em>Cantidad total de usuarios: </em></font><font color="black"><em>{{users_count}}</em></font></h2>  
