@@ -1,5 +1,3 @@
- <a href="http://localhost:4567/hell2"><font color="black"><em> ATRAS </em></font></a><br> 
-
   <h1><font color="black"><em>PUBLICACION</em></font></h1>
 
   <h2><font color="black"><em>Cantidad total de publicaciones: </em></font><font color="black"><em>{{posts_count}}</em></font></h2>	

@@ -1,5 +1,4 @@
- <a href="http://localhost:4567/hello"><font color="black"><em> INICIO </em></font></a><br> 
-<font color="black"><em>Ciudad</em></font></h1></b>
+ <font color="black"><em>Ciudad</em></font></h1></b>
 
   <table width="100%" border="0" cellspacing="0" cellpadding="0">
     {{#city}}

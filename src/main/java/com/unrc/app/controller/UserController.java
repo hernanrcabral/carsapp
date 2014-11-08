@@ -4,14 +4,20 @@
  * and open the template in the editor.
  */
 package com.unrc.app.controller;
+import static spark.Spark.*;
 
-import com.unrc.app.models.User;
+import org.javalite.activejdbc.Base;
+import java.util.*;
+
+import com.unrc.app.models.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
+import spark.Spark;
+import spark.Session;
 
 /**
  *
@@ -82,6 +88,10 @@ public class UserController {
                 attributes.put("user", user);
 
                 return new ModelAndView(attributes, "userId.moustache");
+    }
+
+    public String getRole(){
+    	return rol;
     }
     
 }
